@@ -1,0 +1,195 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+\usepackage{graphicx}
+\usepackage{hyperref}
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+
+
+
+\title{Stucture Exercise 1}
+\author{Charles Loelius}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Separation Energies}
+
+I demonstrate below two plots generated from a script which can be found on github, and which will be printed below.
+
+First, for the proton separation energy:\\
+\vspace{1mm}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{"ProtonSepEnergy"}
+\end{figure}
+
+We note that, as might be expected, the largest separation energies are found at high N, low Z parts of the range, while the high Z, low N regions have very small such energy. This makes sense, as in the former case we would expect to be near the neutron dripline, where the protons are vital for stability, wheras in the latter case we'd expect to be near the proton dripline and so expect it to be very easy to remove a proton(and so have low proton separation energy). The only exception is in the very borders near the high end of the neutron to proton ratio, where the separation energies become very small, which may be an effect of the extreme instability in that range.\\
+\newpage
+Next, for the neutron separation energies.\\
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{"NeutronSepEnergy"}
+\end{figure}
+
+We see as we would expect from the previous discussion something very much like an inverse of the proton separation energies, with the largest values for cases of low N and high Z, and the smallest values in cases of high N and low Z, again representing the relative instability of high N nuclei, and their relative propensity towards shedding neutrons, versus high Z nuclei which require those neutrons to be (more) stable.\\
+
+Finally we plot the binding energies here:\\
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{"BindingEnergy"}
+\end{figure}
+
+We see as we would trivially expect an increase in binding energy totals with increasing A.
+
+
+
+\section{Liquid Drop Model Results}
+
+I compare the results from the previous section to the liquid drop model using similar plots. I chose not to plot these on the same graphs because of the dificulty of comparsion. In addition, I have shown a "relative" comparison between the liquid drop results and the empirical results. I begin with the liquid drop model's results for the proton and neutron separation energies.
+For the proton separation energies we have:\\
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{"LiquidDropProtonSepEnergy"}
+\end{figure}
+\newpage
+And for the neutron separation energies we also have:\\
+\vspace{1mm}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\linewidth]{"LiquidDropNeutronSepEnergy"}
+\end{figure}
+\vspace{1mm}
+
+We see that this has the same features when it comes to the high Z/low N and low Z/high N limits as the empirical values, suggesting the equation is at least roughly correct. We will see in the binding energies that this is in fact a much better approximation than expected. \\
+
+First we look at the actual binding energies, which we see have the same structure as in the empirical results.
+\vspace{1mm}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{"LiquidDropBindingEnergy"}
+\end{figure}
+\vspace{1mm}
+
+We then follow this with a look at the relative difference between the binding energies.\\
+
+\vspace{1mm}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{"ComparisonLiquidDropExpBE"}
+\end{figure}
+\vspace{1mm}
+ 
+From this we see that the relative differences are throughout in the range of less than 50\% and are in general much closer, with the only exceptions being the extremely low Z and N cases, where we have differences ranging up to $400\%$. \\
+\newpage
+
+\section{Comparison of Terms in Emperical Mass Equation}
+
+Next we consider each of the terms in the Empirical Mass formula. These are shown below, with binding energy per nucleon shown. 
+This will allow us to see the effects of each term. 
+
+
+\vspace{1mm}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{"LiquidDropTerms"}
+\end{figure}
+\vspace{1mm}
+
+We see as expected that the volume term provides a constant stability, which is counteracted by the coulomb and surface terms, and that indeed even the surface term alone seems to be enough to begin a strong structure in the system, but that we do not produce a curve with a peak until either the coulomb or coulomb and pairing terms enter into the equation(it is hard to judge the coulomb term because of the fact that there is a wide variety in the energy spread and so how and if it peaks is difficult to say.) This suggest the vital importance of all of these terms, at least at a prima facie level, in order to explain nuclei, as  the curve of binding energy is vital for explaining astrophysical abundances, and without the maxima would utterly change the composition of the cosmos.\\
+\newpage
+
+\section{Neutron Drip Line}
+
+I use a separate program to calculate the neutron drip line by finding the zero's of the function using sympy. The point where the binding energy becomes negative is the point where we anticipate finding the neutron dripline. Doing so we find the following plot:\\
+
+\vspace{1mm}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{"NeutronDripLine"}
+\end{figure}
+\vspace{1mm}
+
+
+Investigating we see that in the range of 8 to 9 protons we would expect the neutron drip line at approximately N=40. However, the empirical value of the neutron drip line appears to be 16 for Oxygen(as can be found at \url{https://groups.nscl.msu.edu/theory/content/oxygen-isotopes-beyond-neutron-dripline}), and we also find that for fluorine the dripline is at N=22(\url{http://cerncourier.com/cws/article/cern/31868}). We thus see that the Emperical Mass Formula overpredicts the location of the neutron drip line by as much as $\Delta N=20$ for small values of N. It also seems clear that as the values get higher this graph shows a linear increase in the overall number of N, reaching values on the order of 800, which seems very unlikely for some of the highest Z nuclei.  
+
+
+\end{document}

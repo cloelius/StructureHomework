@@ -1,0 +1,231 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+\usepackage{amsmath}
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+%%% END Article customizations
+
+
+
+
+
+%%% The "real" document content comes below...
+
+\title{Nuclear Structure}
+\author{Charles Robert Loelius}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+
+\section{Wavefunction for N=3}
+
+We can easily calculate the explicit form of our Slater determinant as such:\\
+
+\begin{equation}
+\Phi^{AS}_\lambda =\frac{1}{\sqrt{N!}} \Sigma_p (-1)^p P \Pi_{i=1}^3 \psi_{\alpha_i}(x_i)
+\end{equation}
+
+This can be found via an actual determinant as such:\\
+\begin{equation}
+\Phi^{AS}_\lambda = \frac{1}{\sqrt{3!}} \left| \begin{array}{ccc}
+\psi_1 (x_1) & \psi_1 (x_2) & \psi_1(x_3) \\
+\psi_2(x_1) & \psi_2(x_2) & \psi_2(x_3) \\
+\psi_3(x_1) & \psi_3(x_2) & \psi_3(x_3)  \end{array}\right|
+\end{equation}
+
+We then merely take this determenant to find that\\
+
+\begin{equation}
+\begin{split}
+\Phi^{AS}_\lambda =\frac{1}{\sqrt{3!}}(\psi_1(x_1)(\psi_2(x_2)\psi_3(x_3)-\psi_3(x_2)\psi_2(x_3))+ \\ \psi_1(x_2)(\psi_3(x_1)\psi_1(x_3)-\psi_1(x_1)\psi_3(x_3))+\psi_1(x_3)(\psi_2(x_1)\psi_3(x_2)-\psi_3(x_1)\psi_2(x_2)))
+\end{split}
+\end{equation}
+
+\section{Normalization}
+
+In order to prove normalization we argue from induction. We note that the case where $N=1$ is trivial, as it is merely then that $\Phi=\psi$, as $\frac{1}{N!}=1$ in this case, and so is trivially normalized.\\
+
+Let us now assume that the previous $N-1$ Slater deteriminants were normalized properly. We prove that the Nth Slater determinant is also normalized.
+
+So we consider this determinant and show that:\\
+
+\begin{equation}
+\Phi_N=\frac{1}{\sqrt{N!}} \left| \begin{array}{ccc}
+\psi_N (x_1) & \cdots & \psi_N(x_N) \\
+\vdots  & \ddots & \vdots  \\
+\psi_1(x_1) & \cdots & \psi_1(x_N)  \end{array}\right|
+\end{equation}
+
+Now taking this determinant we can sum over the elements of the top row times the determinant of the matrix formed by removing the top row and the ith column, where i is the index of the item of the top row being multiplied. We can then note that this forms a Slater-esque determinant which I denote as $\chi_i$, where we are taking a slater determinant of the matrix of size $N-1$ with the wavefunction $\psi_i(x_i)$ replaced by $\psi_i(x_N)$, and where there is no normalization constant.\\
+
+We then have that\\
+\begin{equation} 
+\Phi_N=\frac{1}{\sqrt{N!}}\Sigma_i (-1)^i \psi_N(x_i)\chi_i
+\end{equation}
+
+Now we thus have that in the expansion of $\Phi_N^* \Phi_N$, only those terms involving $\psi_N(x_i)^*\chi_i^*\psi_N(x_i)\chi_i$ will survive, because any other term will involve $\psi_N(x_i)^*\chi_j$ or $\psi_N(x_i)\chi_j^*$. But those terms must therefore contain $\psi_N(x_i)$ and $\psi_k(x_i)$ for $k \neq N$. This is then 0 because each $\psi_i$ is orthonormalized. \\
+
+We then just have the sum:\\
+
+\begin{equation}
+\Phi_N^*\Phi_N= \Sigma_i \frac{1}{N!}(\psi_N(x_i)^*\chi_i^*\psi_N(x_i)\chi_i)
+\end{equation}
+
+We then note that the $\psi_N(x_i)^* \psi_N(x_i)$ will integrate out to 1 by orthonormality. We then have that\\
+
+\begin{equation}
+\int dx\vec \Phi_N^* \Phi_N = \Sigma \frac{1}{N!} \int dx\vec \chi_i^*\chi_i
+\end{equation}
+
+We then have that from the assumption that the normalization condition holds, that as the indicies i are arbitrary, it follows that\\
+\begin{equation}
+ \int dx\vec \chi_i^*\chi_i=\int dx\vec (N-1)! \Phi_(N-1)^* \Phi_(N-1)=(N-1)!
+\end{equation}	
+
+We then have that, noting that there are N indicies being summed over:\\
+\begin{equation}
+\int dx\vec \Phi_N^* \Phi_N = \Sigma \frac{1}{N!} \int dx\vec \chi_i^*\chi_i=\frac{N}{N!}(N-1)!=1
+\end{equation}
+
+We then have via induction that the normalization condition holds for all Slater determinants.
+
+\section{Matrix Elements}
+
+We define two operators
+
+\begin{equation}
+F\hat=\Sigma_i^N f\hat(x_i)
+\end{equation}
+
+\begin{equation}
+G\hat =\Sigma_{i>j}^N g\hat (x_i,x_j)
+\end{equation}
+
+We then note that for a two particle system the slater determinant must be:\\
+
+\begin{equation}
+\Phi=\frac{1}{\sqrt{2}}(\psi_1(x_1)\psi_2(x_2)-\psi_1(x_2)\psi_2(x_1))
+\end{equation}
+
+We furthermore note that this means in the two particle case:
+
+\begin{equation}
+F\hat=f\hat(x_1)+f\hat(x_2)
+\end{equation}
+
+\begin{equation}
+G\hat=g\hat(x_i,x_j)
+\end{equation}
+
+
+We then define $<\psi_i(x_i)|<\psi_j(x_j)|$ as $<\psi_i \psi_j|$\\ 
+
+
+From this it follows that
+
+\begin{equation}
+\begin{split}
+<\Phi|F\hat|\Phi>=\frac{1}{2}(<\psi_1 \psi_2|(f\hat(x_1)+f\hat(x_2))|\psi_1\psi_2>-<\psi_1\psi_2|(f\hat(x_1)+f\hat(x_2))|\psi_2\psi_1>-\\ <\psi_2 \psi_1|(f\hat(x_1)+f\hat(x_2))|\psi_1\psi_2>+<\psi_2\psi_1|(f\hat(x_1)+f\hat(x_2))|\psi_2\psi_1>)
+\end{split}
+\end{equation}
+
+Now since the f terms don't interact between the two variables $x_1, x_2$, it follows that\\
+\begin{equation}
+\begin{split}
+<\Phi|F\hat|\Phi>=\frac{1}{2}(<\psi_1(x_1)|f\hat(x_1)|\psi_1(x_1)>+<\psi_1(x_2)|(f\hat(x_2)|\psi_1(x_2)>\\+<\psi_2(x_1)|f\hat(x_1)|\psi_2(x_1)>+<\psi_2(x_2)|f\hat(x_2)|\psi_2(x_2)>)
+\end{split}
+\end{equation}
+
+
+In the case that the f operators are the same for both particles(as would again be the same for identical particles) it follows that
+
+\begin{equation}
+\begin{split}
+<\Phi|F\hat|\Phi>=<\psi_1(x_1)|f\hat(x_1)|\psi_1(x_1)>+<\psi_2(x_1)|f\hat(x_1)|\psi_2(x_1)>
+\end{split}
+\end{equation}
+
+We can do the same now with the g term, as:\\
+\begin{equation}
+\begin{split}
+<\Phi|G\hat|\Phi>=\frac{1}{2}(<\psi_1 \psi_2|(g\hat(x_1,x_2))|\psi_1\psi_2>-<\psi_1\psi_2|(g\hat(x_1,x_2))|\psi_2\psi_1>-\\ <\psi_2 \psi_1|(g\hat(x_1,x_2))|\psi_1\psi_2>+<\psi_2\psi_1|(g\hat(x_1,x_2))|\psi_2\psi_1>)
+\end{split}
+\end{equation}
+
+Noting that in the g case there is no distinction between $x_1$ and $x_2$ it follows that if they are indistinguishable particles(as they must be for the slater determinant to be a reasonable choice)\\
+
+\begin{equation}
+\begin{split}
+<\Phi|G\hat|\Phi>=(<\psi_1 \psi_2|(g\hat(x_1,x_2))|\psi_1\psi_2>-<\psi_1\psi_2|(g\hat(x_1,x_2))|\psi_2\psi_1>
+\end{split}
+\end{equation}
+
+Given the short hand notation for the Slater determinant, which has the representation of the slater determinant as\\
+
+\begin{equation}
+\Phi_{\alpha_1 \alpha_2}^{AS}
+\end{equation}
+
+We anticipate an interchange of particles to be symmetric as the alphas related to the quantum numbers. 
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
