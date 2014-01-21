@@ -179,7 +179,7 @@ We see as expected that the volume term provides a constant stability, which is 
 
 \section{Neutron Drip Line}
 
-I use a separate program to calculate the neutron drip line by finding the zero's of the function using sympy. The point where the binding energy becomes negative is the point where we anticipate finding the neutron dripline. Doing so we find the following plot:\\
+I use a separate program to calculate the neutron drip line by finding the zero's of the separation function using sympy. The point where the neutron separation energy becomes negative is the point where we anticipate finding the neutron dripline. Doing so we find the following plot:\\
 
 \vspace{1mm}
 \begin{figure}[h]
@@ -189,7 +189,7 @@ I use a separate program to calculate the neutron drip line by finding the zero'
 \vspace{1mm}
 
 
-Investigating we see that in the range of 8 to 9 protons we would expect the neutron drip line at approximately N=40. However, the empirical value of the neutron drip line appears to be 16 for Oxygen(as can be found at \url{https://groups.nscl.msu.edu/theory/content/oxygen-isotopes-beyond-neutron-dripline}), and we also find that for fluorine the dripline is at N=22(\url{http://cerncourier.com/cws/article/cern/31868}). We thus see that the Emperical Mass Formula overpredicts the location of the neutron drip line by as much as $\Delta N=20$ for small values of N. It also seems clear that as the values get higher this graph shows a linear increase in the overall number of N, reaching values on the order of 800, which seems very unlikely for some of the highest Z nuclei.  
+Investigating we see that in the range of 8 to 9 protons we would expect the neutron drip line at approximately N=16 and 19 respectively. Indeed, the empirical value of the neutron drip line appears to be 16 for Oxygen(as can be found at \url{https://groups.nscl.msu.edu/theory/content/oxygen-isotopes-beyond-neutron-dripline}), and we also find that for fluorine the dripline is at N=22(\url{http://cerncourier.com/cws/article/cern/31868}). We thus see that the Emperical Mass Formula is very close for the oxygen isotope but seems to becomes slightly off even as close by as flourine. This suggests the possibility that for any higher z isotopic chains the emperical mass formula may not work for finding the neutron drip line.
 \newpage
 \section{Script for Generating Binding Energies}
 \lstinputlisting{Exercise1Script.py}
