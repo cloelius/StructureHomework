@@ -141,9 +141,46 @@ We see tha as p goes to zero this becomes close to 1, suggesting equal amounts o
 \end{equation}
 
 Where a and b are (normalized) constants defining the eigenvector of the corresponding matrix and the psi's are of course the slater determinants from part a.
+\section{Three states}
+
+We now consider the 3 level case(again only with the two particle on one level states considered. ) We thus must have a matrix of the form:\\
+
+\begin{equation}
+\matrixsym{H}=\left(\begin{matrix} 2p-g & -g & -g \\  -g & 4p-g & -g \\ -g & -g & 6p-g \end{matrix} \right)
+\end{equation}
+
+However, this matrix is not easily diagonalizable in closed form, unless we provide numeric values for p and g. (In principle anything larger than 5x5 must be so as it will be equivalent to solving a general nth order polynomial, which becomes far more difficult for n>2, and impossible for n>5).\\
+
+With this, I now consider a few cases in order to demonstrate features of the system. I first consider the uncoupled case, g=0. This trivially has no mixing with trivial eigenvalues of 2p,4p, and 6p. \\
+
+Now in the case that $p =g=1$, we have eigenvalues of $.22$, $3.3$ and $5.5$ corresponding to eigenvectors\\
+
+\begin{equation}
+\left( \begin{matrix} -.87 \\ -.47 \\-.14 \end{matrix} \right)
+\left( \begin{matrix} -.41 \\ .85 \\ -.32 \end{matrix} \right)
+\left( \begin{matrix} -.26 \\ .22 \\ .93 \end{matrix} \right)
+\end{equation}
+
+What we see is that we've decreased the energy of the first state from 2 to .28 by means of mixing, while decreasing the second to 3.325, and ever so slightly increasing the energy 6.4. There is much more substantial mixing in the first two eigenvectors, which makes sense as the mixing is more prominant relative to the base energy(ignoring the -g).\\
+
+We now consider a case where $g>p$, which we will here do with $g=10, p=1$. Now in the case that $p =1$, $g=10$ we have eigenvalues of $-26.1$, $2.9$ and $5.2$ corresponding to eigenvectors\\
+
+\begin{equation}
+\left( \begin{matrix} .62 \\ -.76 \\-.2 \end{matrix} \right)
+\left( \begin{matrix} -.57 \\ .61 \\ -.54 \end{matrix} \right)
+\left( \begin{matrix} -.53\\ -.22\\ .81 \end{matrix} \right)
+\end{equation}
+
+We see here that as the p is made large relative to the value of g(so towards the third eigenvector), we see much more importance to the symmetry breaking of the energy of the single particle states, wheras in the case of the first two eigenvectors, since g>>p relatively speaking, there is much mixing, with the second state and first state being nearly equally ixed in the first eigenvector, with strong mixing of the third state in the second eigenvector. 
 
 
+We finally consider the case of $g=1$, $p=0$, we have eigenvalues of $0$, $3$ and $0$ corresponding to eigenvectors\\
 
+\begin{equation}
+\left( \begin{matrix} .82 \\ -.5 \\0 \end{matrix} \right)
+\left( \begin{matrix} -.41 \\ -.58 \\ -.707 \end{matrix} \right)
+\left( \begin{matrix} -.41 \\ -.58 \\ .707 \end{matrix} \right)
+\end{equation}
 
 
 
