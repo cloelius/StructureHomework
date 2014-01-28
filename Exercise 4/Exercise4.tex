@@ -31,18 +31,53 @@
 \usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
 % These packages are all incorporated in the memoir class to one degree or another...
 
+\usepackage{braket}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Octave,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,                       % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
 %%% HEADERS & FOOTERS
 \usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
 \pagestyle{fancy} % options: empty , plain , fancy
 \renewcommand{\headrulewidth}{0pt} % customise the layout...
 \lhead{}\chead{}\rhead{}
 \lfoot{}\cfoot{\thepage}\rfoot{}
-
+\usepackage{amsmath}
 %%% SECTION TITLE APPEARANCE
 \usepackage{sectsty}
 \allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
 % (This matches ConTeXt defaults)
-
+\usepackage{isomath}
 %%% ToC (table of contents) APPEARANCE
 \usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
 \usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
@@ -53,20 +88,113 @@
 
 %%% The "real" document content comes below...
 
-\title{Brief Article}
-\author{The Author}
+\title{Exercise 4}
+\author{Charles Loelius}
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
 
 \begin{document}
 \maketitle
 
-\section{First section}
+\section{Slater Determinant Transforms}
 
-Your text goes here.
+The objective here is to show that taking a slater determinant into a new orthonormal basis will still allow it to be written as a Slater determinant.\\
 
-\subsection{A subsection}
 
-More text.
+To begin, we assume we have some wavefunctions and particles $\psi_n$ and $x_n$, which can be put into the standard format as:\\
+
+\begin{equation}
+\matrixsym{\Psi}=\left( \begin{matrix} \psi_1(x_1) & \ldots & \psi_1(x_n) \\ \vdots & \ddots & \vdots \\ \psi_n(x_1) & \ldots & \psi_n(x_n)  \end{matrix}\right)
+\end{equation}
+
+Where trivially we have that the wavefunction is the determinant of this matrix $\matrixsym{\Psi}$.\\
+
+
+Now let us consider a conversion to another orthonormal basis. We then know that this means that there is a relationship\\
+
+\begin{equation}
+\phi_a=\Sigma_i C_{a, i}\psi_i
+\end{equation}
+
+We then realize that this can itself be represented as a matrix of the form\\
+
+\begin{equation}
+\vec{\phi}=\matrixsym{C}\vec{\psi}
+\end{equation}
+
+Where each of the vectors $\vec{\phi}$ and $\vec{\psi}$ are the orthnormal bases.
+
+So with this we can then note that if we wish to write out a particular $\psi_a$ in terms of $\phi$, it follows that\\
+
+\begin{equation}
+\matrixsym{C^{-1}}\vec{\phi}=\vec{\psi}
+\end{equation}
+
+We then recognize that each column of the matrix $\matrixsym{\Psi}$ is just the basis vector with a different $x_i$ in it.\\
+
+We thus see that $\matrixsym{C^{-1}}\matrixsym{\Psi}$ creates a new matrix $\matrixsym{\Phi}$ in the $\vec{\phi}$ basis.\\
+
+Finally we note that\\
+
+\begin{equation} \Phi=det(\matrixsym{\Psi}) \end{equation}
+
+At this point we note that, taking advantage of the unitarity of $\matrixsym{C}$\\
+
+\begin{equation} 
+det(\matrixsym{\Phi})=det(\matrixsym{C^{-1}}\matrixsym{\Psi})=det(\matrixsym{C^{-1}})\Phi
+\end{equation}
+
+Now we then note that \\
+\begin{equation}
+det(\matrixsym{C^{-1}})=det({\matrixsym{C}^{T}})=|det({\matrixsym{C}})|
+\end{equation}
+
+From this it follows that 
+\begin{equation}
+det(\matrixsym{C^{-1}})=e^{i\theta}
+\end{equation}
+
+And so we have from here\\
+
+\begin{equation}
+det(\matrixsym{\Phi})=det(\matrixsym{C^{-1}}\matrixsym{\Phi})=e^{i\theta}\matrixsym{\Psi}
+\end{equation}
+
+And so we see that we can continue to write the slater determinant as a determinant in another basis.
+
+\section{Variation Of Energy}
+
+We now consider how energy might vary as a function of $\bra{\psi}$.\\
+
+We then have that\\
+
+\begin{equation}
+\braket{E}=\bra{\psi+\delta\psi}H\ket{\psi}
+\end{equation}
+
+From this it follows that \\
+
+\begin{equation}
+\delta \braket{E}=\bra{\delta\psi}H\ket{\psi}
+\end{equation}
+
+Now, knowing\\
+
+\begin{equation}
+H=\sum_{i=1}^A(t(x_i)+u(x_i))+\frac{1}{2} \sum_{i\neq j}^A v(x_i,x_j)
+\end{equation}
+
+Hence we have that\\
+
+\begin{equation}
+\delta \braket{E}=\bra{\delta\psi}\left(\sum_{i=1}^A(t(x_i)+u(x_i))+\frac{1}{2} \sum_{i\neq j}^A v(x_i,x_j)\right)\ket{\psi}
+\end{equation}
+Now, we take advantage of our previous results for the expectation values of one and two body operators:
+
+\begin{equation}
+\delta \braket{E}=\sum_{i} \bra{\delta\psi_i}\left(t(x_i)+u(x_i)\right)\ket{\psi_i}+\sum_{i\neq j}^N\left( \bra{\delta \psi_i\psi_j}v\ket{\psi_i \psi_j} -\bra{\delta \psi_i\psi_j}v\ket{\psi_j \psi_i}  \right)
+\end{equation}
+
+
 
 \end{document}
