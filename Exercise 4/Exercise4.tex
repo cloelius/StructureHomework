@@ -164,19 +164,26 @@ And so we see that we can continue to write the slater determinant as a determin
 
 \section{Variation Of Energy}
 
-We now consider how energy might vary as a function of $\bra{\psi}$.\\
+We now consider how energy might vary as a function of $\bra{\Phi}$.\\
 
 We then have that\\
 
 \begin{equation}
-\braket{E}=\bra{\psi+\delta\psi}H\ket{\psi}
+\delta \Phi=\sum_i \frac{\partial}{\partial \psi_i} \Phi \partial \psi_i=\sum_{j=1}^A \frac{1}{\sqrt{A!}}\sum_p (-1)^p P \prod_{i\neq j}^A \psi_i \delta \psi_j
+\end{equation}
+\\
+
+Now we can then find the following, recognizing that the change in $\psi$ or $\psi^*$ are equivalent:\\
+
+\begin{equation}
+\delta \braket{E}=\sum_j \frac{\delta}{\delta \psi_j^*} \delta \psi_j^* \bra{\Phi}\hat{H} \ket{\Phi}
 \end{equation}
 
-From this it follows that \\
-
+Which we see , recognizing the form of $\delta \Phi$ that this is simply the same as:
 \begin{equation}
 \delta \braket{E}=\bra{\delta\psi}H\ket{\psi}
 \end{equation}
+
 
 Now, knowing\\
 
@@ -189,12 +196,31 @@ Hence we have that\\
 \begin{equation}
 \delta \braket{E}=\bra{\delta\psi}\left(\sum_{i=1}^A(t(x_i)+u(x_i))+\frac{1}{2} \sum_{i\neq j}^A v(x_i,x_j)\right)\ket{\psi}
 \end{equation}
-Now, we take advantage of our previous results for the expectation values of one and two body operators:
+
+We can then note that in the one body term the expectation value of the off diagonal matrix elements is 0, which means in our case that:
+\begin{equation}
+\delta \braket{E_1}=\sum_j \bra{ \Phi \frac{\delta\psi_j}{\psi_j}}\left(\sum_{i=1}^A(t(x_i)+u(x_i)))\ket{\Phi }\right)
+\end{equation}
+
+
+Now we can further note that for the one body term, if we do not match $\bra{\delta \psi_i}, \ket{\psi_i }$ we will be left with an expectation value  that includes some term $\bra{\delta \psi_j}\ket{\psi_j}$, which must be zero if no operator is considered to be acting between, trivially.\\
+
+We can then see that the one body term is just \\
+\begin{equation}
+\delta \braket{E}=\sum_{i} \bra{\delta\psi_i}\left(t(x_i)+u(x_i)\right)\ket{\psi_i}
+\end{equation}
+
+We note then that a nearly identical argument suffices for the two body operator, which we have derived previously ought to have a form like\\
+\begin{equation}
+ \sum_{i\neq j}^N \bra{\frac{\delta \Phi}{\psi_i \psi_j }}\left( \bra{\delta \psi_i\psi_j  }v\ket{\psi_i \psi_j} -\bra{ \psi_i\psi_j}v\ket{\psi_j \psi_i }\right)  \ket{\frac{\Phi}{\psi_i \psi_j }} +\bra{\frac{\delta \Phi}{\psi_i \psi_j }}\left(   \bra{\delta \psi_i\psi_j  }v\ket{\psi_i \psi_j} -\bra{\delta \psi_i\psi_j}v\ket{\psi_j \psi_i }\right)\ket{\frac{\Phi}{ \psi_i \psi_j }} 
+\end{equation}
+
+Because here we must again remove all terms where our varied wavefunction is not acted on by an operator, i.e. they evaluate to 0,  we can remove most terms as we did before, leaving the expected answer as:\\
 
 \begin{equation}
 \delta \braket{E}=\sum_{i} \bra{\delta\psi_i}\left(t(x_i)+u(x_i)\right)\ket{\psi_i}+\sum_{i\neq j}^N\left( \bra{\delta \psi_i\psi_j}v\ket{\psi_i \psi_j} -\bra{\delta \psi_i\psi_j}v\ket{\psi_j \psi_i}  \right)
 \end{equation}
-
+	
 	
 
 
