@@ -76,7 +76,7 @@ J_-=\sum_p a_{p-}^\dagger a_{p+}
 \begin{equation}
 J_z=\sum_{p\sigma}\sigma a_{p\sigma}^\dagger a_{p\sigma}
 \end{equation}
-
+	
 \begin{equation}
 J^2=J_+J_-+J_z^2-J_z
 \end{equation}
@@ -96,7 +96,138 @@ We now set to show that these operators follow the canonical angular momenta com
 \end{equation}
 
 \begin{equation}
-\left[J^2, J_z\right]=0
-\subsection
+\left[J^2, J_z\right]=0\end{equation}
+\subsection{Proof of commutator relations}
+\subsubsection{$\left[  J_+, J_-  \right]=2J_z $}
+First we consider the commutator relation (5)
+
+\begin{equation}
+\left[J_+,J_-\right]=\sum_p a_{p+}^\dagger a_{p-} \sum_k a_{k-}^\dagger a_{k+}-\sum_k a_{k-}^\dagger a_{k+} \sum_p a_{p+}^\dagger a_{p-}   \end{equation}
+
+We then immediately note that since for $k\neq p$ \\
+\begin{equation}
+\left[a_{p\sigma},a_{k\sigma'}\right]=0 
+\end{equation}
+
+It follows that all the terms where $p \neq k$ fall out of the commutator. Hence:
+\begin{equation}
+\left[J_+,J_-\right]=\sum_p a_{p+}^\dagger a_{p-} a_{p-}^\dagger a_{p+}-\sum_p a_{p-}^\dagger a_{p+}  a_{p+}^\dagger a_{p-}   \end{equation}
+
+Now we note that because of the difference in spins, some of these terms commute and the sums can be merged and we can rewrite this as\\
+\begin{equation}
+\left[J_+,J_-\right]=\sum_p a_{p+}^\dagger a_{p+}a_{p-} a_{p-}^\dagger - a_{p-}^\dagger a_{p-}  a_{p+} a_{p+}^\dagger    \end{equation}
+
+Finally we note that since \\
+\begin{equation}
+\left[a,a^\dagger\right]=1
+\end{equation}
+
+This thus means that with further rearangement\\
+
+\begin{equation}
+\left[J_+,J_-\right]=\sum_p a_{p+}^\dagger a_{p+} (a_{p-}^\dagger a_{p-}+1) - (a_{p+}^\dagger a_{p+} +1) a_{p-}^\dagger a_{p-}      \end{equation}
+
+
+And finally simplifying this is\\
+
+\begin{equation}
+\left[J_+,J_-\right]=\sum_p a_{p+}^\dagger a_{p+}  - a_{p-}^\dagger a_{p-}      \end{equation}
+
+Which we note is just\\
+
+\begin{equation}
+\left[J_+,J_-\right]=\sum_{p\sigma} a_{p\sigma}^\dagger a_{p\sigma} =2J_z     \end{equation}
+
+And this is as expected in agreement with the relationship (5) above.\\
+
+
+\subsubsection{$\left[J_+,J_z\right]=-J_+$}
+
+Again we write this out in full using the creation and anhilation operators. \\
+
+
+\begin{equation}
+\left[J_+,J_z\right]=\frac{1}{2} \left( \sum_k a_{k+}^\dagger a_{k-} \sum_{p\sigma}\sigma a_{p\sigma}^\dagger a_{p\sigma}- \sum_{p\sigma}\sigma a_{p\sigma}^\dagger a_{p\sigma}\sum_k a_{k+}^\dagger a_{k-}\right)
+\end{equation}
+
+From this it follows that if $k \neq p$ it follows that those terms cancel and similarly for the sigmas. \\
+
+\begin{equation}
+\left[J_+,J_z\right]=\frac{1}{2}\sum_{p\sigma} \sigma \left( a_{p+}^\dagger a_{p-}  a_{p\sigma}^\dagger a_{p\sigma}-  a_{p\sigma}^\dagger a_{p\sigma} a_{p+}^\dagger a_{p-}\right)
+\end{equation}
+
+We then expand this sum over sigma as\\
+
+\begin{equation}
+\left[J_+,J_z\right]=\frac{1}{2}\sum_{p}  \left( a_{p+}^\dagger a_{p-}  a_{p+}^\dagger a_{p+}-  a_{p+}^\dagger a_{p+} a_{p+}^\dagger a_{p-}  - a_{p+}^\dagger a_{p-}  a_{p-}^\dagger a_{p-}+  a_{p-}^\dagger a_{p-} a_{p+}^\dagger a_{p-} \right)
+\end{equation}
+
+
+Again taking advantage of the creation/annhilation operators' commutation relations it follows that\\
+
+
+\begin{equation}
+\left[J_+,J_z\right]=\frac{1}{2}\sum_{p}  \left( a_{p+}^\dagger  a_{p+}^\dagger a_{p+} a_{p-}-  a_{p+}^\dagger (a_{p+}^\dagger a_{p+}+1) a_{p-}  - a_{p+}^\dagger  (a_{p-}^\dagger a_{p-}+1)  a_{p-}+   a_{p+}^\dagger a_{p-}^\dagger a_{p-} a_{p-} \right)
+\end{equation}
+
+And finally cancelling like terms\\
+
+
+\begin{equation}
+\left[J_+,J_z\right]=-\sum_{p} a_{p+}^\dagger a_{p-}=-J_+
+\end{equation}
+
+
+\subsubsection{$\left[J_-,J_z\right]=J_-$}
+
+This is fundamentally the same as the previous argument and so I skip most of the explanations:\\
+
+
+\begin{equation}
+\left[J_-,J_z\right]=\frac{1}{2} \left( \sum_k a_{k-}^\dagger a_{k+} \sum_{p\sigma}\sigma a_{p\sigma}^\dagger a_{p\sigma}- \sum_{p\sigma}\sigma a_{p\sigma}^\dagger a_{p\sigma}\sum_k a_{k-}^\dagger a_{k+}\right)
+\end{equation}
+
+
+\begin{equation}
+\left[J_-,J_z\right]=\frac{1}{2}\sum_{p\sigma} \sigma \left( a_{p-}^\dagger a_{p+}  a_{p\sigma}^\dagger a_{p\sigma}-  a_{p\sigma}^\dagger a_{p\sigma} a_{p-}^\dagger a_{p+}\right)
+\end{equation}
+
+
+
+\begin{equation}
+\left[J_-,J_z\right]=\frac{1}{2}\sum_{p}  \left( a_{p-}^\dagger a_{p+}  a_{p+}^\dagger a_{p+}-  a_{p+}^\dagger a_{p+} a_{p-}^\dagger a_{p+}  - a_{p-}^\dagger a_{p+}  a_{p-}^\dagger a_{p-}+  a_{p-}^\dagger a_{p-} a_{p-}^\dagger a_{p+} \right)
+\end{equation}
+
+
+Again taking advantage of the creation/annhilation operators' commutation relations it follows that\\
+
+
+\begin{equation}
+\left[J_-,J_z\right]=\frac{1}{2}\sum_{p}  \left( a_{p+}^\dagger  a_{p+}^\dagger a_{p-} a_{p+}-  a_{p+}^\dagger (a_{p+}^\dagger a_{p+}-1) a_{p-}  - a_{p-}^\dagger  (a_{p-}^\dagger a_{p-}-1)  a_{p+}+   a_{p-}^\dagger a_{p-}^\dagger a_{p-} a_{p+} \right)
+\end{equation}
+
+And finally cancelling like terms\\
+
+
+\begin{equation}
+\left[J_-,J_z\right]=\sum_{p} a_{p-}^\dagger a_{p}=J_-
+\end{equation}
+
+\subsubsection{$\left[J^2,J_z\right]=0$}
+
+Here we take advantage of commutator algebra. Noting that\\
+
+\begin{equation}
+J^2=J_+J_-+J_z^2-J_z
+\end{equation}
+
+It is immediately clear that $J_z$ commutes with the second and third terms.\\
+
+Then\\
+
+\begin{equation}
+\left[J^2,J_z\right]=\left[J_+J_-,J_z \right]=J_+\left[J_-,J_z\right]+\left[J_+,J_z\right]J_-=J_+J_- -J_+J_-=0
+\end{equation}
+
 
 \end{document}
