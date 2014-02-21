@@ -394,25 +394,109 @@ We prove this by first finding the commutators\\
 \begin{equation}
 \left[J_+,N\right], \left[J_-,N\right]
 \end{equation}
-
+\subsubsection{$\left[J_-,N\right]$}
 We can then have\\
 
 \begin{equation}
-\left[J_-,N\right]=\left[\sum_p a_{p-}^\dagger a_{p+}, \sum_p a_{p+}^\dagger a_+ +\sum_p a_{p-}^\dagger a_{p-}\right]
+\left[J_-,N\right]=\left[\sum_p a_{p-}^\dagger a_{p+}, \sum_p a_{p+}^\dagger a_{p+} +\sum_p a_{p-}^\dagger a_{p-}\right]
 \end{equation}
 
 Noting that the only non zero terms of the commutator will be those when the p terms are identical we thus have
 
 \begin{equation}
-\left[J_-,N\right]=\sum_p\left[ a_{p-}^\dagger a_{p+},  a_{p+}^\dagger a_+ + a_{p-}^\dagger a_{p-}\right]
+\left[J_-,N\right]=\sum_p\left[ a_{p-}^\dagger a_{p+},  a_{p+}^\dagger a_{p+} + a_{p-}^\dagger a_{p-}\right]
 \end{equation}
 Separating out the sums we have
 \begin{equation}
-\left[J_-,N\right]=\sum_p\left[ a_{p-}^\dagger a_{p+},  a_{p+}^\dagger a_+ + a_{p-}^\dagger a_{p-}\right]
+\left[J_-,N\right]=\sum_p\left[ a_{p-}^\dagger a_{p+},  a_{p+}^\dagger a_{p+} + a_{p-}^\dagger a_{p-}\right]
 \end{equation}
 
 \begin{equation}
-\left[J_-,N\right]=\sum_p\left[ a_{p-}^\dagger a_{p+},  a_{p+}^\dagger a_+ \right]+\left[ a_{p-}^\dagger a_{p+},  a_{p-}^\dagger a_{p-}\right]
+\left[J_-,N\right]=\sum_p\left[ a_{p-}^\dagger a_{p+},  a_{p+}^\dagger a_{p+} \right]+\left[ a_{p-}^\dagger a_{p+},  a_{p-}^\dagger a_{p-}\right]
+\end{equation}
+
+Simplifying further we have\\
+
+\begin{equation}
+\left[J_-,N\right]=\sum_p\left( a_{p-}^\dagger\left[ a_{p+},  a_{p+}^\dagger \right] a_{p+}+ a_{p-}^\dagger\left[ a_{p-}^\dagger,  a_{p-} \right] a_{p+}\right)
+\end{equation}
+
+Taking the commutators we see that\
+
+\begin{equation}
+\left[J_-,N\right]=\sum_p a_{p-}^\dagger a_{p+} -\sum_p a_{p-}^\dagger a_{p+}
+\end{equation}
+
+And we see this is equal to\\
+\begin{equation}
+\left[J_-,N\right]=J_- -J_-=0
+\end{equation}
+
+\subsubsection{$\left[J_+,N\right]$}
+We now do the same for $J_+$\\
+
+\begin{equation}
+\left[J_+,N\right]=\left[\sum_p a_{p+}^\dagger a_{p-}, \sum_p a_{p+}^\dagger a_{p+} +\sum_p a_{p-}^\dagger a_{p-}\right]
+\end{equation}
+
+Noting that the only non zero terms of the commutator will be those when the p terms are identical we thus have
+
+\begin{equation}
+\left[J_+,N\right]=\sum_p\left[ a_{p+}^\dagger a_{p-},  a_{p+}^\dagger a_{p+} + a_{p-}^\dagger a_{p-}\right]
+\end{equation}
+Separating out the sums we have
+
+
+\begin{equation}
+\left[J_+,N\right]=\sum_p\left[ a_{p+}^\dagger a_{p-},  a_{p+}^\dagger a_{p+} \right]+\left[ a_{p+}^\dagger a_{p-},  a_{p-}^\dagger a_{p-}\right]
+\end{equation}
+
+Simplifying further we have\\
+
+\begin{equation}
+\left[J_+,N\right]=\sum_p\left( a_{p+}^\dagger\left[ a_{p+}^\dagger,  a_{p+} \right] a_{p-}+ a_{p+}^\dagger\left[ a_{p-},  a_{p-}^\dagger \right] a_{p-}\right)
+\end{equation}
+
+Taking the commutators we see that\
+
+\begin{equation}
+\left[J_-,N\right]=-\sum_p a_{p+}^\dagger a_{p-} -\sum_p a_{p+}^\dagger a_{p-}
+\end{equation}
+
+And we see this is equal to\\
+\begin{equation}
+\left[J_-,N\right]=J_+ -J_+=0
+\end{equation}
+
+\subsubsection{$\left[J^2,N\right]$}
+
+We note finally that if we define an operator 
+\begin{equation}n_{\sigma}=\sum_p a_{p\sigma}^\dagger a_{p\sigma}\end{equation}
+
+It follows that trivially \\
+
+\begin{equation}
+\left[n_{\sigma}.n_{\sigma'}\right]=0
+\end{equation}
+
+It thereby follows that \\
+
+\begin{equation}
+J_z=\frac{1}{2}\left(n_+ - n_-\right)
+\end{equation}
+
+and\\
+
+\begin{equation}
+N=n_++n_-
+\end{equation}
+
+Now from this it therefore follows that N and $J_z$ commute trivially.\\
+
+Hence \\
+
+\begin{equation}
+\left[J^2,N\right]=0
 \end{equation}
 
 
