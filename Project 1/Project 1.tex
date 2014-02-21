@@ -230,4 +230,196 @@ Then\\
 \end{equation}
 
 
+\section{Hamiltonian in Quasi Spin Form}
+
+We need to rewrite the hamiltonian operator in terms of these quasispin operators. 
+
+\subsection{$H_0=\frac{1}{2}\epsilon \sum_{\sigma,p} \sigma a_{\sigma,p}^\dagger  a_{\sigma,p}$}
+
+We see immediately that this is just\\
+
+\begin{equation}
+H_0=\epsilon \hat{J_z}
+\end{equation}
+
+Which of course fits with the anticpated physical phenomenon.
+
+\subsection{$H_1=\frac{V}{2}\sum_{\sigma,p,p'} a_{\sigma,p}^\dagger a_{\sigma,p'}^\dagger a_{-\sigma,p'}a_{-\sigma,p}$}
+
+This derivation is fairly straightforward, as due to the fact that the anhiliation and creation operators have different energy levels(i.e. the creation operators are all at energy $\sigma$ and the annhilation at energy -$\sigma$), it follows that\\
+
+\begin{equation}
+H_1=\frac{1}{2}V \sum_{\sigma,p,p'} a_{\sigma p}^\dagger a_{-\sigma, p} a_{\sigma p'}^\dagger a_{-\sigma, p} 
+\end{equation}
+
+
+
+This can then immediately be decomposed into a product over the two different $\sigma$ states. Thus these become\\
+
+\begin{equation} 
+\frac{V}{2}\left(\sum_p a_{+ p}^\dagger a_{-, p} \sum_{p'} a_{+ p'}^\dagger a_{-, p'}  +\sum_p a_{- p}^\dagger a_{+, p} \sum_{p'} a_{- p'}^\dagger a_{+, p'}\right)
+\end{equation}
+
+And it is then clear that this is just\\
+
+\begin{equation}
+\frac{V}{2}\left((J^+)^2+(J^-)^+\right)
+\end{equation}
+
+\subsection{$H_2=\frac{W}{2}\sum_{\sigma,p,p'}a_{\sigma,p}^\dagger a_{-\sigma,p'}^\dagger a_{\sigma,p'} a_{-\sigma,p}$}
+
+
+This derivation is similar to the above except in that if p=p' there is  need to make use of a commutation relation:\\
+
+\begin{equation}
+H_2=\frac{W}{2}\sum_{\sigma,p,p'}a_{\sigma,p}^\dagger \left(a_{-\sigma,p}
+ a_{-\sigma,p'}^\dagger -\delta_{p,p'}\right) a_{\sigma,p'} 
+\end{equation}
+
+This can thus be written as
+\begin{equation}
+ \frac{W}{2}\sum_{\sigma,p,p'}a_{\sigma,p}^\dagger a_{-\sigma,p}
+ a_{-\sigma,p'}^\dagger a_{\sigma,p'}  -\sum_{\sigma,p}a_{\sigma,p}^\dagger a_{\sigma,p}
+\end{equation}
+It is clear that the second term is identical to
+\begin{equation}
+\hat{N}=\sum_{\sigma,p}a_{\sigma,p}^\dagger a_{\sigma,p}
+\end{equation} 
+
+It is furthermore clear that the first term can be decomposed as in the previous section so that
+\begin{equation}
+ \sum_\sigma \left(\sum_{p}a_{\sigma,p}^\dagger a_{-\sigma,p}
+ \sum_{p'}a_{-\sigma,p'}^\dagger a_{\sigma,p'} \right)
+\end{equation}
+
+And we see this term is just\\
+
+\begin{equation}
+J_+J_-+J_-J_+
+\end{equation}
+
+Finally putting all these terms together we have that 
+
+\begin{equation}
+H_2=\frac{W}{2}\left( J_+J_- + J_-J_+ -N\right)
+\end{equation}
+
+Finally taking advantage of the commutation relations in part one and the definition of $J^2$ it follows that\\
+
+\begin{equation}
+H_2=W\left(J^2-J_z^2-\frac{N}{2}\right)
+\end{equation}
+
+
+\section{$J^2$ commutes with H}
+
+To prove $J^2$ commutes with H we show it commutes with each component of H.
+\subsection{$H_0$}
+ Having already shown that $\left[J^2,J_z\right]=0$ it is trivially clear that\\
+
+\begin{equation}
+\left[J^2,H_0\right]=\left[J^2,\epsilon J_z \right]=\epsilon \left[J^2,J_z \right]=0
+\end{equation}
+\subsection{$H_1$}
+Next we show that \\
+
+\begin{equation}
+\left[J^2,H_1\right]=0
+\end{equation}
+
+We can show this by showing instead that\\
+
+\begin{equation}
+\left[J^2,J_+\right]=0
+\end{equation}
+
+and\\
+\begin{equation}
+\left[J^2,J_-\right]=0
+\end{equation}
+
+We prove these by takng advantage of the fact that
+
+\begin{equation}
+J^2=J_+J_-+J_z^2-J_z
+\end{equation}
+\subsubsection{$\left[J^2,J_+\right]=0$}
+From this it follows that\\
+\begin{equation}
+\left[J^2,J_+\right]=\left[J_+J_-,J_+\right]+\left[J_z^2,J_+\right]-\left[J_z,J_+\right]
+\end{equation}
+
+By taking advantage of our previous commutation relations and basic commutator algebra we have\\
+
+\begin{equation}
+\left[J^2,J_+\right]=J_+\left[J_-,J_+\right]+J_z\left[J_z,J_+\right]+\left[J_z,J_+\right]J_z-J_+\end{equation}
+
+
+And with further simplification\\
+
+\begin{equation}
+\left[J^2,J_+\right]=-2J_+J_z+J_zJ_+ + J_+ J_z-J_+=2J_+J_z-2J_+J_z+J_+-J_+=0\end{equation}
+
+\subsubsection{$\left[J^2,J_-\right]=0$}
+We can then do the same for the $J_-$ case.
+
+\begin{equation}
+\left[J^2,J_-\right]=\left[J_+J_-,J_-\right]+\left[J_z^2,J_-\right]-\left[J_z,J_-\right]
+\end{equation}
+
+
+\begin{equation}
+\left[J^2,J_-\right]=\left[J_+,J_-\right]J_-+J_z\left[J_z,J_-\right]+\left[J_z,J_-\right]J_z+J_-\end{equation}
+
+
+And with further simplification\\
+
+\begin{equation}
+\left[J^2,J_+\right]=2J_zJ_-+J_zJ_- + J_- J_z+J_-=2J_zJ_- -2J_zJ_-+J_--J_-=0\end{equation}
+
+From this it immediately follows that 
+\begin{equation}
+\left[J^2,H_1\right]=\left[J^2, \frac{V}{2}\left((J^+)^2+(J^-)^2\right)\right]=0
+\end{equation}
+
+\subsection{$\left[J^2,H_2\right]=0$}
+
+We prove this is also 0 by noting that as shown below the $H_2$ term has a term $J^2$ which trivially commutes with itself, and a term in powers of $J_z$ which we have already shown commutes. Hence we only need to show that the remaining term commutes, or equivalently that $\left[J^2,N\right]=0$\\
+\begin{equation}
+H_2=W\left(J^2-J_z^2-\frac{N}{2}\right)
+\end{equation}
+
+We prove this by first finding the commutators\\
+
+\begin{equation}
+\left[J_+,N\right], \left[J_-,N\right]
+\end{equation}
+
+We can then have\\
+
+\begin{equation}
+\left[J_-,N\right]=\left[\sum_p a_{p-}^\dagger a_{p+}, \sum_p a_{p+}^\dagger a_+ +\sum_p a_{p-}^\dagger a_{p-}\right]
+\end{equation}
+
+Noting that the only non zero terms of the commutator will be those when the p terms are identical we thus have
+
+\begin{equation}
+\left[J_-,N\right]=\sum_p\left[ a_{p-}^\dagger a_{p+},  a_{p+}^\dagger a_+ + a_{p-}^\dagger a_{p-}\right]
+\end{equation}
+Separating out the sums we have
+\begin{equation}
+\left[J_-,N\right]=\sum_p\left[ a_{p-}^\dagger a_{p+},  a_{p+}^\dagger a_+ + a_{p-}^\dagger a_{p-}\right]
+\end{equation}
+
+\begin{equation}
+\left[J_-,N\right]=\sum_p\left[ a_{p-}^\dagger a_{p+},  a_{p+}^\dagger a_+ \right]+\left[ a_{p-}^\dagger a_{p+},  a_{p-}^\dagger a_{p-}\right]
+\end{equation}
+
+
+
+
+
+
+
 \end{document}
+
