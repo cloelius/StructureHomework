@@ -5,13 +5,13 @@
 % See "book", "report", "letter" for other types of document.
 
 \documentclass[11pt]{article} % use larger type; default would be 10pt
-
+\usepackage{braket}
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
 
 %%% Examples of Article customizations
 % These packages are optional, depending whether you want the features they provide.
 % See the LaTeX Companion or other references for full information.
-
+\usepackage{amsmath}
 %%% PAGE DIMENSIONS
 \usepackage{geometry} % to change the page dimensions
 \geometry{a4paper} % or letterpaper (US) or a5paper or....
@@ -500,9 +500,128 @@ Hence \\
 \end{equation}
 
 \section{Constructing the $J=2$ states}
+\subsection{$J_z=-1$}
+We begin by considering that the $J=-2$ state is\\
+
+\begin{equation} \left(\prod  _p a_{-p}^\dagger\right) \ket{ 0}\end{equation}
+\subsection{$J_z=-1$}
+We then apply the $J_+$ operator knowing that\\
+
+\begin{equation}
+J_+ \ket{J,J_z}=\sqrt{J(J+1)-J_z(J_z+1)}\ket{J,J_z+1}\end{equation}
+
+We can then directly apply this as\\
+
+\begin{equation} 
+J_+ \ket{2,-2}=\sqrt{6-2}\ket{2,-1}=\sum_p a_{p+}^\dagger a_{p-}\left(\prod_p a_{p-}^\dagger\right) \ket{ 0} \end{equation}
 
 
+We see that this last term is such that if the anhiliation term comes first it will kill of the term. Hence we get a delta function in ps over the sum, leading to\\
 
+\begin{equation}
+\sqrt{4}\ket{2,-1}=\sum_p a_{p+}^\dagger a_{p-} a_{p-}^\dagger \ket{ 0} =\sum_p a_{p+}^\dagger \prod_{p'} \left(\left( a_{p'-}^\dagger a_{p-}+1\right)\delta_{p,p'}+a_{p'-}^\dagger(1-\delta_{p,p'}) \right)  \ket{ 0} \end{equation}
+
+Now the term in the product on the far left clearly goes to zero so that this becomes\\
+
+\begin{equation}
+\sum_p a_{p+}^\dagger \prod_{p' \neq p} a_{p'-}^\dagger
+\end{equation}
+
+We thus have\\
+\begin{equation}
+\ket{2,-1}=\frac{1}{2} \left(\sum_p a_{p+}^\dagger \prod_{p' \neq p} a_{p'-}^\dagger\right)\end{equation}
+
+
+It is clear that this is just the normalized sum of all possible permutations of levels where one is $\sigma=+$ and all the others are -1.
+
+
+\subsection{$J_z=0$}
+We can then apply the $J_+$ operator again.\\
+
+\begin{equation}
+J_+ \ket{2,-1}=\sqrt{6} \ket{2,0}=\frac{1}{2} \left(\sum_{p''} a_{p''+}^\dagger a_{p'' -} \sum_p a_{p+}^\dagger \prod_{p' \neq p} a_{p'-}^\dagger\right)
+\end{equation}
+
+We see clearly that this follows a similar pattern to the previous, with the only major difference being in that since the sum is over both p and p', that there is a factor of two when the delta functions are considered. We thereby wind up with\\
+
+\begin{equation}
+\ket{2,0}=\frac{1}{\sqrt{6}}\left(\sum_{p,p'\neq p} a_{p+}^\dagger a_{p'+}^\dagger \prod_{p'''\neq p\neq p'} a_{p''-}^\dagger \right)
+\end{equation}
+
+Which is to say this is just all the possibilites where all four degeneraties are occupied and two are up and two down normalized.\\
+
+\subsection{$J_z=1$}
+
+We here note that via the symmetry of the hamiltonian under $\epsilon \rightarrow -\epsilon$ and $\sigma \rightarrow -\sigma$ it follows that\\
+
+\begin{equation} \ket{2, 1} =\ket{2,-1} |_{\sigma \rightarrow -\sigma}=\frac{1}{2} \left(\sum_p a_{p-}^\dagger \prod_{p' \neq p} a_{p'+}^\dagger\right)\end{equation}
+
+
+It is clear that this is just the normalized sum of all possible permutations of levels where one is $\sigma=-$ and all the others are +.
+
+\subsection{$J_z=2$}
+
+The same argument as previous holds and so we trivially have\\
+
+\begin{equation}
+\ket{2,2}=\sum_p a_{p+}^\dagger
+\end{equation}
+
+
+\section{Hamiltonian in 5d space}
+
+We can construct this Hamiltonian matrix in general by considering the application of $J_+$, $J_-$, $J_z$ and $N$ on the eigenstates $\ket{J,J_z}$.(so long as the hamiltonian is made up of these operators).\\
+
+
+In this case we can see trivially from the way that the operators $J_+$, $J_-$ and $J_z$ operate that their matrix representations in general ought to be, where we take the basis to be \\
+\begin{equation}
+\vec{J}=\begin{pmatrix} \ket{J,J_z=J} \\ \ket{J,J_z=J-1} \\ \vdots \\ \ket{J,J_z=-J} \end{pmatrix}\end{equation}
+\begin{equation}
+J_+=\begin{pmatrix} 0 & 0 & 0 & \cdots & 0 \\
+\sqrt{J(J+1)-(J-1)(J)} & 0 & 0 & \cdots & 0 \\
+0& \sqrt{J(J+1)-(J-2)(J-1)}  & 0 & \cdots & 0 \\
+\vdots & \ddots  & \ddots  & \cdots & \vdots\\
+0 & 0 & 0 & \sqrt{J(J+1)-J(J-1)}& 0 
+
+ \end{pmatrix}
+\end{equation}  
+
+
+Similarly for the $J_-$ we have\\
+
+\begin{equation}
+J_+=\begin{pmatrix} 0 & \sqrt{J(J+1)-J(J-1)} & 0 & \cdots & 0 \\
+0 & 0 & \sqrt{J(J+1)-(J-1)(J-2)} & \cdots & 0 \\
+\vdots & \ddots  & \ddots  & \cdots & \vdots\\
+0 & 0 & 0 & 0 & \sqrt{J(J+1)-(J-1)(J)}\\
+0 & 0 & 0 & 0& 0 
+
+ \end{pmatrix}
+\end{equation}  
+
+
+And for $J_z$ we have trivially that\\
+
+\begin{equation}
+J_z=\begin{pmatrix} J & 0 & 0 & \cdots & 0 \\
+0 & J-1  & 0 & \cdots & 0 \\
+\vdots & \ddots  & \ddots  & \cdots & \vdots\\
+0 & 0 & 0 & -J+1 & 0\\
+0 & 0 & 0 & 0& -J 
+ \end{pmatrix}
+\end{equation}
+Now finally we note that $N$ returns the original state with an eigenvalue of how many particles are in the state. It's worth noting then that we can define $J$ states for each of the possible numbers of particles N=(0,1,2,3,4) which map to $J=(0,\frac{1}{2},1,\frac{3}{2},2)$
+
+  From this it immediately follows that\\
+
+\begin{equation}
+N=2\begin{pmatrix} 
+J & 0 & 0 & \cdots & 0 \\
+0 & J  & 0 & \cdots & 0 \\
+\vdots & \ddots  & \ddots  & \cdots & \vdots\\
+0 & 0 & 0 & J & 0\\
+0 & 0 & 0 & 0& J \end{pmatrix}
+\end{equation}
 
 
 
