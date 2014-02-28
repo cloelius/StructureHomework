@@ -1,5 +1,6 @@
 import numpy as np
 import sympy
+import sympy.special
 def printlatex(a):
     return " \\\\\n".join([" & ".join(map('{0:.2f}'.format, line)) for line in a])
 
@@ -16,6 +17,24 @@ class Hamiltonian:
         H2=0
         eigvals=0
         eigvecs=0
+        Cpp=1
+        Cpm=0
+        Cmp=0
+        Cmm=1
+        Cmat=0
+        def SetCmat(self,Cpp,Cpm,Cmm):
+            self.Cpp=Cpp
+            self.Cmm=Cmm
+            self.Cpm=Cpm
+            self.Cmp=np.conjugate(Cpm)
+            self.Cmat=np.array([[Cpp,Cpm],[Cmp,Cmm]])
+        def GetUMatElement(self,Kz,Jz):
+            n=0
+            el=0
+            while(n<=np.abs(Jz)+self.Jms.J):
+                m=np.abs(Jz)+self.Jms.J-n
+                #el=el+scipy.special.binom(self.Jms.J+Kz,i)*scipy.special.binom(self.Jms.J-Kz,self.Jms.J+Kz-i)*self.Cpp**i*self.Cpm**(self.Jms.J+Kz-i)*self.Cmm**(
+            
 		def __init__(self,W,V,epsilon,Jms):
             self.W=W
             self.V=V

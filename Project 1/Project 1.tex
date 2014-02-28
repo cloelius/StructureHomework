@@ -733,8 +733,97 @@ We note further that these states will be orthonormal if we assume that $\mathbf
 
 We realize that by the orthonormality of the Lipkin states this means that\\
 \begin{equation}
-\bra{\phi_{\alpha',p'}}\ket{\phi_{\alpha,p}}= \sum_{\sigma=\pm 1} C_{\alpha' \sigma}^* C_{\alpha \sigma} \bra{\mu_{\sigma,p'}} \ket{\mu_{\sigma,p}}=\sum_{\sigma=\pm 1} C_{\alpha' \sigma}^* C_{\alpha \sigma} \delta_{p,p'}\end{equation}
+\bra{\phi_{\alpha',p'}}\ket{\phi_{\alpha,p}}= \sum_{\sigma=\pm 1} C_{\alpha' \sigma}^* C_{\alpha \sigma} \bra{\mu_{\sigma,p'}} \ket{\mu_{\sigma,p}}=\sum_{\sigma=\pm 1} C_{\alpha' \sigma}^\dagger C_{\alpha \sigma} \delta_{p,p'}\end{equation}
 
+Now finally we note that because of the unitarity of the matrix that $C^\dagger C=1$ and hence \\
+\begin{equation} \sum_a C_{ b a}^\dagger C_{c a}=\delta_{bc} \end{equation}
+
+From which it follows that
+\begin{equation}
+\bra{\phi_{\alpha',p'}}\ket{\phi_{\alpha,p}}=\delta_{p,p'}\delta_{\alpha,\alpha'}\end{equation}
+
+And hence the new basis states are also orthonormal. 
+
+We note that in this transformation we have not changed p in constructing new particles. While in principle some mixing of $p$ states could be considered, there is no need for this to create the relevant new particle states because the Hamiltonian is invariant under transformations that permute the ps. I.e. the p states are degenerate under $H$. This would not be possible if we added some $H'(p)$ term, in which case much of the machinery developed here would need to be changed substantially(or else treated as a perturbation to the previouly considered states).\\
+
+
+\section{Calculate the new Slater Determinant}
+
+We begin by noting that we can construct analogue anhilation and creation operators for the new single particle states so that\\
+
+\begin{equation} b_{\alpha,p}^\dagger\ket{0}=\ket{ \phi_{\alpha,p}} \end{equation}
+
+We can then realize that based on the description of the basis states previously considered it follows that it thus follows that\\
+
+\begin{equation}
+b_{\alpha,p}^\dagger \ket{0}=\left(C_{\alpha+}a_{+p}^\dagger+C_{\alpha-}a_{-p}^\dagger\right)\ket{0}\end{equation}
+
+
+Now from this we see that we can easily construct J states by considering that the same pseudo spin can be made from $b^\dagger$ operators as was done previously. We hence have that for any state we have some sum of all products of combinations of creation operators that have a total sum of $\sigma$ equal to the $J_z$ state\\
+
+Now I construct something akin to generalized operators $A_+ ,A_-$ and $B_+,B_-$ which are creation operators that are insensitive to p, and instead just add "1" more single particle state of the Lipkin model or the transformed model of $\sigma =\pm$ in a way that generates the proper $J_z$ states. So, for example $A_+^2A_-^2 \ket{0} = \ket{J=2,J_z=0}$.\\
+
+We thus have trivially that because the matrix $C$ does not depend on p that \\
+
+\begin{equation}
+B_+ \ket{0}=(A_+ C_{++}+A_- C_{+-})\ket{0}\end{equation}
+
+\begin{equation}
+B_- \ket{0}=(A_+ C_{-+}+A_- C_{--})\ket{0}\end{equation}
+
+Now we can in general construct any pseudo-angular momentum state. Let K represent the analogue of J for the modified particle states.\\
+
+Then\\
+\begin{equation} \ket{K, K_z}=B_+^{K+K_{z}}B_-^{K-K_z}\ket{0}\end{equation}\\
+
+It thus follows that\\
+
+\begin{equation}
+\ket{K,K_z}=(A_+ C_{++}+A_- C_{+-})^{K+K_z} (A_+ C_{-+}+A_- C_{--})^{K-K_z}\ket{0}\end{equation}
+
+We see that this can be expanded as\\
+
+\begin{equation}\resizebox{.9\hsize}{!}{$
+\ket{K,K_z}=\left( \sum_{n=0}^{K+K_z} \binom{K+K_z}{n} \left(A_+ C_{++}\right)^n\left(A_- C_{+-}\right)^{K+K_z-n}\right)\left( \sum_{n=0}^{K-K_z} \binom{K-K_z}{n} \left(A_+ C_{-+}\right)^n\left(A_- C_{--}\right)^{K-K_z-n}\right)\ket{0}$}
+\end{equation}
+
+
+
+Finally we realize that we can now construct a matrix $U$ such that \begin{equation} \bra{J}U^\dagger H U \ket{J}=\bra{\psi}H\ket{\psi}\end{equation} where \begin{equation}\ket{J}=\begin{pmatrix} \ket{J J_z} \\ \vdots \\ \ket{J -J_z}\end{pmatrix} \end{equation}  We can find the mixing of each term by expanding out this product of sums and taking together all terms that have the same number of $A_+$s and $A_-s$.\\
+
+This is explicitly\\
+
+\begin{equation}
+\bra{J,J_z}\ket{K,K_z}=	\delta_{J,K}\sum_{n+m=J+J_z} \binom{K+K_z}{n}C_{++}^nC_{+-}^{K+K_z-n}\binom{K-K_z}{m}C_{-+}^m C_{--}^{K-K_z-m}
+\end{equation} 
+
+Hence we have finally that we can construct the matrix $U$ as (for J=K), noting that $\braket{J,J_z|K,K_z}=\braket{K,K_z|J,J_z}^\dagger$. \\
+
+\begin{equation}
+U=\begin{pmatrix} 
+\braket{K,0|J,0}&\braket{K,0|J,1}& \cdots & \braket{K,0|J,J}\\
+\braket{K,1|J,0}&\braket{K,1|J,1}& \cdots & \braket{K,1|J,J}\\
+\vdots &\ddots & \ddots & \vdots \\
+\braket{K,K|J,0}&\braket{K,K|J,1}& \cdots & \braket{K,K|J,J}\\
+\end{pmatrix}
+\end{equation}
+
+
+Finally we do exactly this for the case of $J=K=2$\\
+
+\begin{equation}
+U=\begin{pmatrix} 
+\braket{K,0|J,0}&\braket{K,0|J,1}&  \cdots &    \braket{K,0|J,J}\\
+\braket{K,1|J,0}&\braket{K,1|J,1}& \cdots & \braket{K,1|J,J}\\
+\vdots &\ddots & \ddots & \vdots \\
+\braket{K,K|J,0}&\braket{K,K|J,1}& \cdots & \braket{K,K|J,J}\\
+\braket{K,K|J,0}&\braket{K,K|J,1}& \cdots & \braket{K,K|J,J}\\
+\end{pmatrix}
+\end{equation}
+
+
+	
+ 
 
 
 
