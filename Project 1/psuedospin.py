@@ -1,6 +1,6 @@
-import numpy as np
+import numpy as np  
 import sympy
-import sympy.special
+import scipy.special
 def printlatex(a):
     return " \\\\\n".join([" & ".join(map('{0:.2f}'.format, line)) for line in a])
 
@@ -22,17 +22,52 @@ class Hamiltonian:
         Cmp=0
         Cmm=1
         Cmat=0
+        Umatrix=0
+        def SetUmat(self,sym=False):
+            umat=np.zeros([2*self.Jms.J+1,2*self.Jms.J+1])
+            if sym:
+                umat=umat.tolist()
+                
+            J=self.Jms.J
+            i=0
+            j=0
+          #  print(J)
+            while(i<2*J+1):
+                j=0
+                while(j<2*J+1):
+                    umat[j][i]=self.GetUMatElement(J-i,J-j)
+                    #umat[i][j]=self.GetUMatElement(2*J-i,2*J-j)
+                 #   print(self.GetUMatElement(2*J-i,2*J-j))
+                    j=j+1
+                i=i+1
+            if sym:
+                umat=sympy.matrices.Matrix(umat)
+            self.Umatrix=umat
+                
+        def GenCmat(self,alpha,theta):
+            self.SetCmat(alpha,np.exp(1j*theta)*np.sqrt(1-np.abs(alpha)**2),alpha.conjugate())
         def SetCmat(self,Cpp,Cpm,Cmm):
             self.Cpp=Cpp
             self.Cmm=Cmm
             self.Cpm=Cpm
-            self.Cmp=np.conjugate(Cpm)
-            self.Cmat=np.array([[Cpp,Cpm],[Cmp,Cmm]])
+            self.Cmp=-np.conjugate(Cpm)
+            try:
+                self.Cmat=np.array([[self.Cpp,self.Cpm],[self.Cmp,self.Cmm]])
+            except:
+                self.Cmat=[[self.Cpp,self.Cpm],[self.Cmp,self.Cmm]]
         def GetUMatElement(self,Kz,Jz):
             n=0
-            el=0
-            while(n<=np.abs(Jz)+self.Jms.J):
-                m=np.abs(Jz)+self.Jms.J-n
+            Umatel=0
+            while(n<=np.abs(Kz)+self.Jms.J):
+                m=(Jz)+self.Jms.J-n
+                
+                try:
+                    print(scipy.special.binom(self.Jms.J+Kz,n)*self.Cpp**n*self.Cpm**(self.Jms.J+Kz-n)*scipy.special.binom(self.Jms.J-Kz,m)*self.Cmp**m*self.Cmm**(self.Jms.J-Kz-m))
+                    Umatel=Umatel+scipy.special.binom(self.Jms.J+Kz,n)*self.Cpp**n*self.Cpm**(self.Jms.J+Kz-n)*scipy.special.binom(self.Jms.J-Kz,self.Jms.J-Kz-m)*self.Cmp**m*self.Cmm**(self.Jms.J-Kz-m)
+                except: 
+                    print('p')
+                n=n+1
+            return Umatel
                 #el=el+scipy.special.binom(self.Jms.J+Kz,i)*scipy.special.binom(self.Jms.J-Kz,self.Jms.J+Kz-i)*self.Cpp**i*self.Cpm**(self.Jms.J+Kz-i)*self.Cmm**(
             
 		def __init__(self,W,V,epsilon,Jms):
@@ -85,7 +120,7 @@ class JMats:
         
         self.J=J
         self.GetMats()
-np.set_printoptions(precision=3)
+np.set_printoptions(precision=1)
 
 m=JMats(2)
 #print(m.Jplus)
@@ -118,8 +153,34 @@ H=H0+H1+H2
 En1=Hamiltonian(-1/4.0,-1/3.0,2.0,m)
 En2=Hamiltonian(-1.0,-4/3.0,2.0,m)
 En3=Hamiltonian(0,-1,0,m)
-print(printlatex(En3.eigvecs))
-print(En3.eigvals)
+#En1.SetCmat(np.sqrt(.7),-np.sqrt(.5)*1j,np.sqrt(.5))
+
+CPP=sympy.Symbol('C_{++}')
+CMM=sympy.Symbol('C_{--}')
+CPM=sympy.Symbol('C_{+-}')
+
+En2.GenCmat(.707,0)
+En1.SetCmat(CPP,CPM,CMM)
+#print(En1.Cmat)
+#En1.SetUmat(sym=True)
+#En2.SetUmat()
+#print(sympy.latex(En1.Umatrix))
+print(En1.Umatrix)
+print(En2.Umatrix)
+#print(En1.GetUMatElement(-1,0))
+#print(En1.H)
+#print(En1.Umatrix.conjugate().transpose().dot(En1.H).dot(En1.Umatrix))
+#print(En1.GetUMatElement(2,2))
+#print(En1.GetUMatElement(2,1))
+#print(En1.GetUMatElement(2,0))
+#print(En1.GetUMatElement(2,-1))
+print(En1.GetUMatElement(0,1))
+print(En1.GetUMatElement(1,0))
+#print(np.linalg.det(En2.Cmat))
+#print(np.linalg.det(En2.Umatrix))
+#print(En1.Cmat.conj().transpose().dot(En1.Cmat))
+#print(printlatex(En3.eigvecs))
+#print(En3.eigvals)
 #print(printlatex(En2.eigvals))
 #print(En2.Eigs())
 #print(En3.Eigs())

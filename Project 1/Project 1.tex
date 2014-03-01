@@ -801,29 +801,62 @@ Hence we have finally that we can construct the matrix $U$ as (for J=K), noting 
 
 \begin{equation}
 U=\begin{pmatrix} 
-\braket{K,0|J,0}&\braket{K,0|J,1}& \cdots & \braket{K,0|J,J}\\
-\braket{K,1|J,0}&\braket{K,1|J,1}& \cdots & \braket{K,1|J,J}\\
+\braket{K,K|J,J}&\braket{K,K|J,J-1}& \cdots & \braket{K,K|J,-J}\\
+\braket{K,K-1|J,J}&\braket{K,K-1|J,J-1}& \cdots & \braket{K,K-1|J,-J}\\
 \vdots &\ddots & \ddots & \vdots \\
-\braket{K,K|J,0}&\braket{K,K|J,1}& \cdots & \braket{K,K|J,J}\\
+\braket{K,-K|J,J}&\braket{K,-K|J,J-1}& \cdots & \braket{K,-K|J,-J}\\
 \end{pmatrix}
 \end{equation}
 
 
-Finally we do exactly this for the case of $J=K=2$\\
+Finally we do exactly this for the case of $J=K=2$. we can incorporate this to find E as\\
 
 \begin{equation}
-U=\begin{pmatrix} 
-\braket{K,0|J,0}&\braket{K,0|J,1}&  \cdots &    \braket{K,0|J,J}\\
-\braket{K,1|J,0}&\braket{K,1|J,1}& \cdots & \braket{K,1|J,J}\\
+E=\braket{\vec{J}|U^\dagger H U |\vec{J}}=\braket{\vec{\psi}|U H U^\dagger |\vec{\psi}} \end{equation}
+
+This has been explicitly incorporated into the pseudospin.py shown at the end. In the case that \\
+\begin{equation}
+\ket{\psi}=\prod_{p=1}^4 b_{\alpha,p}^\dagger \ket{0} \end{equation}
+
+It follows that we take the following values\\
+
+\begin{equation}
+E=\begin{pmatrix} 1 \\ 0 \\ 0 \\0 \\0 \end{pmatrix}^\dagger \begin{pmatrix} 
+\braket{2,2|2,2}&\braket{2,2|2,1}&  \cdots &    \braket{2,2|2,-2}\\
+\braket{2,1|2,2}&\braket{2,1|2,1}& \cdots & \braket{2,1|2,-2}\\
 \vdots &\ddots & \ddots & \vdots \\
-\braket{K,K|J,0}&\braket{K,K|J,1}& \cdots & \braket{K,K|J,J}\\
-\braket{K,K|J,0}&\braket{K,K|J,1}& \cdots & \braket{K,K|J,J}\\
-\end{pmatrix}
+\braket{2,-1|2,2}&\braket{2,-1|2,1}& \cdots & \braket{2,-1|2,-2}\\
+\braket{2,-2|2,2}&\braket{2,-2|2,1}& \cdots & \braket{2,-2|2,-2}\\
+\end{pmatrix}H \begin{pmatrix}
+\braket{2,2|2,2}&\braket{2,2|2,1}&  \cdots &    \braket{2,2|2,-2}\\
+\braket{2,1|2,2}&\braket{2,1|2,1}& \cdots & \braket{2,1|2,-2}\\
+\vdots &\ddots & \ddots & \vdots \\
+\braket{2,-1|2,2}&\braket{2,-1|2,1}& \cdots & \braket{2,-1|2,-2}\\
+\braket{2,-2|2,2}&\braket{2,-2|2,1}& \cdots & \braket{2,-2|2,-2}\\
+\end{pmatrix}^\dagger \begin{pmatrix} 1 \\ 0 \\ 0 \\0 \\0 \end{pmatrix}
 \end{equation}
-
-
 	
  
+From the attached python file we see that\\
+
+\begin{equation}\resizebox{.9\hsize}{!}{$
+U=
+\left[\begin{smallmatrix}1.0 C_{{++}}^{4} & 4.0 C_{{++}}^{3} C_{{+-}} & 6.0 C_{{
+++}}^{2} C_{{+-}}^{2} & 4.0 C_{{++}} C_{{+-}}^{3} & 1.0 C_{{+-}}^{4}\\- 1.0 C_{{
+++}}^{3} \overline{C_{{+-}}} & 1.0 C_{{++}}^{3} C_{{--}} - 3.0 C_{{++}}^{2} C_{{
++-}} \overline{C_{{+-}}} & 3.0 C_{{++}}^{2} C_{{+-}} C_{{--}} - 3.0 C_{{++}} C_{
+{+-}}^{2} \overline{C_{{+-}}} & 3.0 C_{{++}} C_{{+-}}^{2} C_{{--}} - 1.0 C_{{+-}
+}^{3} \overline{C_{{+-}}} & 1.0 C_{{+-}}^{3} C_{{--}}\\1.0 C_{{++}}^{2} \overline{C_{{+-}}}^{2} & - 2.0 C_{{++}}^{2} C_{{--}} \overline{C_{{+-}}} + 2.0 C_{{++}}
+ C_{{+-}} \overline{C_{{+-}}}^{2} & 1.0 C_{{++}}^{2} C_{{--}}^{2} - 4.0 C_{{++}}
+ C_{{+-}} C_{{--}} \overline{C_{{+-}}} + 1.0 C_{{+-}}^{2} \overline{C_{{+-}}}^{2
+} & 2.0 C_{{++}} C_{{+-}} C_{{--}}^{2} - 2.0 C_{{+-}}^{2} C_{{--}} \overline{C_{
+{+-}}} & 1.0 C_{{+-}}^{2} C_{{--}}^{2}\\- 1.0 C_{{++}} \overline{C_{{+-}}}^{3} &
+ 3.0 C_{{++}} C_{{--}} \overline{C_{{+-}}}^{2} - 1.0 C_{{+-}} \overline{C_{{+-}}
+}^{3} & - 3.0 C_{{++}} C_{{--}}^{2} \overline{C_{{+-}}} + 3.0 C_{{+-}} C_{{--}} 
+\overline{C_{{+-}}}^{2} & 1.0 C_{{++}} C_{{--}}^{3} - 3.0 C_{{+-}} C_{{--}}^{2} 
+\overline{C_{{+-}}} & 1.0 C_{{+-}} C_{{--}}^{3}\\1.0 \overline{C_{{+-}}}^{4} & -
+ 4.0 C_{{--}} \overline{C_{{+-}}}^{3} & 6.0 C_{{--}}^{2} \overline{C_{{+-}}}^{2}
+ & - 4.0 C_{{--}}^{3} \overline{C_{{+-}}} & 1.0 C_{{--}}^{4}\end{smallmatrix}\right]$}\end{equation}
 
 
 
