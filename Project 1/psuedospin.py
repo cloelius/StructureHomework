@@ -23,7 +23,7 @@ class Hamiltonian:
         Cmm=1
         Cmat=0
         Umatrix=0
-        def SetUmat(self,sym=False):
+        def SetUmat(self,sym=False,check=True):
             umat=np.zeros([2*self.Jms.J+1,2*self.Jms.J+1])
             if sym:
                 umat=umat.tolist()
@@ -35,11 +35,27 @@ class Hamiltonian:
             while(i<2*J+1):
                 j=0
                 while(j<2*J+1):
-                    umat[i][j]=self.GetUMatElement(J-i,J-j)
+                    if(check):
+                        umat[i][j]=self.GetUMatElement(J-i,J-j)
+                    else :
+                        umat[i][j]=self.GetUMatElement(J-i,J-j,check=False)
                     #umat[i][j]=self.GetUMatElement(2*J-i,2*J-j)
                  #   print(self.GetUMatElement(2*J-i,2*J-j))
                     j=j+1
                 i=i+1
+            i=0
+            while(i<2*J+1):
+                j=0
+                
+                while(j<2*J+1):
+                    if( i>j):
+                        umat[i][j]=-umat[j][i].conjugate()
+                        
+                    #umat[i][j]=self.GetUMatElement(2*J-i,2*J-j)
+                 #   print(self.GetUMatElement(2*J-i,2*J-j))
+                    j=j+1
+                i=i+1
+                
             if sym:
                 umat=sympy.matrices.Matrix(umat)
             self.Umatrix=umat
@@ -55,27 +71,24 @@ class Hamiltonian:
                 self.Cmat=np.array([[self.Cpp,self.Cpm],[self.Cmp,self.Cmm]])
             except:
                 self.Cmat=[[self.Cpp,self.Cpm],[self.Cmp,self.Cmm]]
-        def GetUMatElement(self,Kz,Jz):
+        def GetUMatElement(self,Kz,Jz,check=True):
             n=0
-            Umatel=0
-            #print(Kz)
-           # print(Jz)
-            #print(self.Jms.J)
-            while(n<=(Jz)+self.Jms.J):
-                m=((Jz))+self.Jms.J-n
-               # print(m)
-                if True:
-                #try:
- #                   print(scipy.special.binom(self.Jms.J+Kz,n)*self.Cpp**n*self.Cpm**(self.Jms.J+Kz-n)*scipy.special.binom(self.Jms.J-Kz,m)*self.Cmp**m*self.Cmm**(self.Jms.J-Kz-m))
-                    #print(scipy.special.binom(self.Jms.J+Kz,n))
-                    #print(scipy.special.binom(self.Jms.J-Jz,m))
-                    Umatel=Umatel+scipy.special.binom(self.Jms.J+Kz,n)*self.Cpp**n*self.Cpm**(self.Jms.J+Kz-n)*scipy.special.binom(self.Jms.J-Kz,m)*self.Cmp**(m)*self.Cmm**(self.Jms.J-Kz-m)
-                  #  print(Umatel)
-               # except: 
-                #    print('p')
-                n=n+1
-            return Umatel
-                #el=el+scipy.special.binom(self.Jms.J+Kz,i)*scipy.special.binom(self.Jms.J-Kz,self.Jms.J+Kz-i)*self.Cpp**i*self.Cpm**(self.Jms.J+Kz-i)*self.Cmm**(
+            matel=0
+            J=self.Jms.J
+            while(n<=self.Jms.J+Jz):
+              m=n-Jz-Kz
+              if(m>=0):
+                if(check):
+                    el=scipy.special.binom(J+Kz,n)*self.Cpp**n*self.Cpm**(J+Kz-n)
+                    el=el*scipy.special.binom(J-Kz,m)*self.Cmm**m *self.Cmp**(J-Kz-m)
+                    matel=matel+el 
+                else:
+                    el=scipy.special.binom(J+Kz,n)*self.Cpp**(J+Kz-n)*self.Cpm**(n)
+                    el=el*scipy.special.binom(J-Kz,m)*self.Cmm**(J-Kz-m) *self.Cmp**(m)
+                    matel=matel+el 
+              n=n+1
+            return matel
+                    
             
 		def __init__(self,W,V,epsilon,Jms):
             self.W=W
@@ -166,7 +179,7 @@ CPP=sympy.Symbol('C_{++}')
 CMM=sympy.Symbol('C_{--}')
 CPM=sympy.Symbol('C_{+-}')
 
-En2.GenCmat(.7071,0)
+En2.GenCmat(.000000000000001,0)
 #En2.GenCmat(.99999999999999,0)
 
 En1.SetCmat(CPP,CPM,CMM)
@@ -176,23 +189,24 @@ En2.SetUmat()
 #print(sympy.latex(En1.Umatrix))
 #print(En1.Umatrix)
 print(En2.Umatrix)
+
 #print(En1.GetUMatElement(-1,0))
 #print(En1.H)
 #print(En1.Umatrix.conjugate().transpose().dot(En1.H).dot(En1.Umatrix))
 #print(En1.GetUMatElement(2,2))
 #print(En1.GetUMatElement(2,1))
-print(En2.GetUMatElement(0,2))
-print(En2.GetUMatElement(2,0))
-print(En2.GetUMatElement(2,-1))
-print(En2.GetUMatElement(-1,2))
-print(En2.GetUMatElement(2,2))
-print(En2.GetUMatElement(2,-2))
-print(En2.GetUMatElement(-2,2))
-print(En2.GetUMatElement(1,-1))
-print(En2.GetUMatElement(-1,1))
-print(En2.GetUMatElement(2,2))
-print(En2.GetUMatElement(1,-2))
-print(En2.GetUMatElement(-2,1))
+#print(En2.GetUMatElement(0,2))
+#print(En2.GetUMatElement(2,0))
+#print(En2.GetUMatElement(2,-1))
+#print(En2.GetUMatElement(-1,2))
+#print(En2.GetUMatElement(2,2))
+#print(En2.GetUMatElement(2,-2))
+#print(En2.GetUMatElement(-2,2))
+#print(En2.GetUMatElement(1,-1))
+#print(En2.GetUMatElement(-1,1))
+#print(En2.GetUMatElement(2,2))
+print(En2.GetUMatElement(1,2))
+print(En2.GetUMatElement(2,1))
 
 
 
@@ -201,7 +215,7 @@ print(En2.GetUMatElement(-2,1))
 #print(En2.GetUMatElement(0,1))
 #print(np.linalg.det(En2.Cmat))
 #print(np.linalg.det(En2.Umatrix))
-#print(En1.Cmat.conj().transpose().dot(En1.Cmat))
+#print(En2.Umatrix.conj().transpose().dot(En2.Umatrix))
 #print(printlatex(En3.eigvecs))
 #print(En3.eigvals)
 #print(printlatex(En2.eigvals))
