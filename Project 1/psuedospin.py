@@ -48,8 +48,8 @@ class Hamiltonian:
                 j=0
                 
                 while(j<2*J+1):
-                    if( i>j):
-                        umat[i][j]=-umat[j][i].conjugate()
+                 #   if( i>j):
+                #        umat[i][j]=umat[j][i].conjugate()
                         
                     #umat[i][j]=self.GetUMatElement(2*J-i,2*J-j)
                  #   print(self.GetUMatElement(2*J-i,2*J-j))
@@ -99,9 +99,9 @@ class Hamiltonian:
             self.H1=(self.Jms.Jplus.dot(self.Jms.Jplus)+self.Jms.Jminus.dot(self.Jms.Jminus))*self.V/2.0
             self.H2=self.W/2.0*(self.Jms.Jplus.dot(self.Jms.Jminus)+self.Jms.Jminus.dot(self.Jms.Jplus)-self.Jms.J*2.0*np.eye(self.Jms.J*2+1))
             self.H=self.H1+self.H2+self.H0
-            eigs=np.linalg.eig(self.H)
-            self.eigvals=eigs[0]
-            self.eigvecs=eigs[1]
+      #      eigs=np.linalg.eig(self.H)
+       #     self.eigvals=eigs[0]
+        #    self.eigvecs=eigs[1]
 class JMats:
     J=0
     Jsquared=0
@@ -140,7 +140,7 @@ class JMats:
         
         self.J=J
         self.GetMats()
-np.set_printoptions(precision=1)
+np.set_printoptions(precision=3)
 
 m=JMats(2)
 #print(m.Jplus)
@@ -174,22 +174,33 @@ En1=Hamiltonian(-1/4.0,-1/3.0,2.0,m)
 En2=Hamiltonian(-1.0,-4/3.0,2.0,m)
 En3=Hamiltonian(0,-1,0,m)
 #En1.SetCmat(np.sqrt(.7),-np.sqrt(.5)*1j,np.sqrt(.5))
+Ens=Hamiltonian(Wsym,Vsym,esym,JMats(2))
+
 
 CPP=sympy.Symbol('C_{++}')
 CMM=sympy.Symbol('C_{--}')
 CPM=sympy.Symbol('C_{+-}')
-
-En2.GenCmat(.000000000000001,0)
+En2.GenCmat(.4,0)
+#En2.GenCmat(1-.4,0)
 #En2.GenCmat(.99999999999999,0)
 
 En1.SetCmat(CPP,CPM,CMM)
+Ens.SetCmat(CPP,CPM,CMM)
+#Ens.SetCmat(.99999999,0.0000000000001,.999999999999)
 #print(En1.Cmat)
+Ens.SetUmat(sym=True)
+
 En1.SetUmat(sym=True)
 En2.SetUmat()
-#print(sympy.latex(En1.Umatrix))
-#print(En1.Umatrix)
-print(En2.Umatrix)
+#print(((sympy.matrices.Matrix(Ens.Umatrix))*sympy.matrices.Matrix(Ens.H)*(sympy.matrices.Matrix(Ens.Umatrix))).row(0))
 
+#print(sympy.latex(En1.Umatrix))
+print(En2.Umatrix)
+En2.GenCmat(1-.4,0)
+En2.SetUmat()
+#print(En2.Umatrix)
+
+#print(Ens.Umatrix)
 #print(En1.GetUMatElement(-1,0))
 #print(En1.H)
 #print(En1.Umatrix.conjugate().transpose().dot(En1.H).dot(En1.Umatrix))
@@ -205,8 +216,8 @@ print(En2.Umatrix)
 #print(En2.GetUMatElement(1,-1))
 #print(En2.GetUMatElement(-1,1))
 #print(En2.GetUMatElement(2,2))
-print(En2.GetUMatElement(1,2))
-print(En2.GetUMatElement(2,1))
+#print(En2.GetUMatElement(1,2))
+#print(En2.GetUMatElement(2,1))
 
 
 
@@ -215,7 +226,10 @@ print(En2.GetUMatElement(2,1))
 #print(En2.GetUMatElement(0,1))
 #print(np.linalg.det(En2.Cmat))
 #print(np.linalg.det(En2.Umatrix))
-#print(En2.Umatrix.conj().transpose().dot(En2.Umatrix))
+print(En2.Umatrix.conj().transpose())
+print(np.linalg.inv(En2.Umatrix)-En2.Umatrix)
+
+
 #print(printlatex(En3.eigvecs))
 #print(En3.eigvals)
 #print(printlatex(En2.eigvals))
