@@ -750,121 +750,84 @@ We note that in this transformation we have not changed p in constructing new pa
 
 \section{Calculate the new Slater Determinant}
 
-We begin by noting that we can construct analogue anhilation and creation operators for the new single particle states so that\\
 
-\begin{equation} b_{\alpha,p}^\dagger\ket{0}=\ket{ \phi_{\alpha,p}} \end{equation}
+Now we can calculate the new slater Determinant in general by constructing a rotation matrix in $SU(4)$ which can be constructed from the unitary matrix used to create the new basis particles. However, for the given case where we are rotating into a state $\prod_p b_{\alpha p}^\dagger \ket{0}$, it is clear we can solve this fairly straightforwardly. 
 
-We can then realize that based on the description of the basis states previously considered it follows that it thus follows that\\
+We begin by noting that 
 
-\begin{equation}
-b_{\alpha,p}^\dagger \ket{0}=\left(C_{\alpha+}a_{+p}^\dagger+C_{\alpha-}a_{-p}^\dagger\right)\ket{0}\end{equation}
+\begin{equation}b_{\alpha, p}^\dagger=\left(C_{\alpha+}a_{+,p}^\dagger+C_{\alpha-} a_{-,p}^\dagger \right)\end{equation}
 
+Now from this we see that to construct the state needed we are left with\\
+\begin{equation}\prod_p b_{\alpha p}^\dagger \ket{0}=\prod_p \left(C_{\alpha+}a_{+,p}^\dagger+C_{\alpha-} a_{-,p}^\dagger \right)\end{equation}
 
-Now from this we see that we can easily construct J states by considering that the same pseudo spin can be made from $b^\dagger$ operators as was done previously. We hence have that for any state we have some sum of all products of combinations of creation operators that have a total sum of $\sigma$ equal to the $J_z$ state\\
+We however can then note that we can then fully expand this as\\
+\begin{equation}\prod_p b_{\alpha, p}^\dagger=\left(C_{\alpha+}a_{+,0}^\dagger+C_{\alpha-} a_{-,0}^\dagger \right)
+\left(C_{\alpha+}a_{+,1}^\dagger+C_{\alpha-} a_{-,1}^\dagger \right)\left(C_{\alpha+}a_{+,2}^\dagger+C_{\alpha-} a_{-,2}^\dagger \right)\left(C_{\alpha+}a_{+,3}^\dagger+C_{\alpha-} a_{-,3}^\dagger \right)
+\end{equation}
 
-Now I construct something akin to generalized operators $A_+ ,A_-$ and $B_+,B_-$ which are creation operators that are insensitive to p, and instead just add "1" more single particle state of the Lipkin model or the transformed model of $\sigma =\pm$ in a way that generates the proper $J_z$ states. So, for example $A_+^2A_-^2 \ket{0} = \ket{J=2,J_z=0}$.\\
-
-We thus have trivially that because the matrix $C$ does not depend on p that \\
-
-\begin{equation}
-B_+ \ket{0}=(A_+ C_{++}+A_- C_{+-})\ket{0}\end{equation}
-
-\begin{equation}
-B_- \ket{0}=(A_+ C_{-+}+A_- C_{--})\ket{0}\end{equation}
-
-Now we can in general construct any pseudo-angular momentum state. Let K represent the analogue of J for the modified particle states.\\
-
-Then\\
-\begin{equation} \ket{K, K_z}=B_+^{K+K_{z}}B_-^{K-K_z}\ket{0}\end{equation}\\
-
-It thus follows that\\
-
-\begin{equation}
-\ket{K,K_z}=(A_+ C_{++}+A_- C_{+-})^{K+K_z} (A_+ C_{-+}+A_- C_{--})^{K-K_z}\ket{0}\end{equation}
-
-We see that this can be expanded as\\
+This can be further expanded as(supressing the dagger for readability, interpret these as creation operators)\\
 
 \begin{equation}\resizebox{.9\hsize}{!}{$
-\ket{K,K_z}=\left( \sum_{n=0}^{K+K_z} \binom{K+K_z}{n} \left(A_+ C_{++}\right)^n\left(A_- C_{+-}\right)^{K+K_z-n}\right)\left( \sum_{n=0}^{K-K_z} \binom{K-K_z}{n} \left(A_+ C_{-+}\right)^n\left(A_- C_{--}\right)^{K-K_z-n}\right)\ket{0}$}
+C_{\alpha+}^4 a_{+,0}a_{+,1}a_{+,2}a_{+,3}+C_{\alpha+}^3C_{\alpha-} \left(a_{-,0}a_{+,1}a_{+,2}a_{+,3}+a_{+,0}a_{-,1}a_{+,2}a_{+,3}+a_{+,0}a_{+,1}a_{-,2}a_{+,3}+a_{+,0}a_{+,1}a_{+,2}a_{-,3}\right)+
+C_{\alpha+}^2C_{\alpha-}^2 \left(a_{+,0}a_{+,1}a_{-,2}a_{-,3}+a_{+,0}a_{-,1}a_{+,2}a_{-,3}+a_{+,0}a_{-,1}a_{-,2}a_{+,3}+a_{-,0}a_{+,1}a_{+,2}a_{-,3}+a_{-,0}a_{+,1}a_{-,2}a_{+,3}+a_{-,0}a_{-,1}a_{+,2}a_{+,3}\right)
++C_{\alpha+}C_{\alpha-}^3\left(a_{-,0}a_{+,1}a_{+,2}a_{+,3}+a_{+,0}a_{-,1}a_{+,2}a_{+,3}+a_{+,0}a_{+,1}a_{-,2}a_{+,3}+a_{+,0}a_{+,1}a_{+,2}a_{-,3}\right)+
+C_{\alpha-}^4 a_{-,0}a_{-,1}a_{-,2}a_{-,3}$}
 \end{equation}
 
-
-
-Finally we realize that we can now construct a matrix $U$ such that \begin{equation} \bra{J}U^\dagger H U \ket{J}=\bra{\psi}H\ket{\psi}\end{equation} where \begin{equation}\ket{J}=\begin{pmatrix} \ket{J J_z} \\ \vdots \\ \ket{J -J_z}\end{pmatrix} \end{equation}  We can find the mixing of each term by expanding out this product of sums and taking together all terms that have the same number of $A_+$s and $A_-s$.\\
-
-This is explicitly\\
+This simplifies easily to\\
 
 \begin{equation}
-\bra{J,J_z}\ket{K,K_z}=	\delta_{J,K}\sum_{n+m=J+J_z} \binom{K+K_z}{n}C_{++}^nC_{+-}^{K+K_z-n}\binom{K-K_z}{m}C_{-+}^m C_{--}^{K-K_z-m}
-\end{equation} 
-
-Hence we have finally that we can construct the matrix $U$ as (for J=K), noting that $\braket{J,J_z|K,K_z}=\braket{K,K_z|J,J_z}^\dagger$. \\
-
-\begin{equation}
-U=\begin{pmatrix} 
-\braket{K,K|J,J}&\braket{K,K|J,J-1}& \cdots & \braket{K,K|J,-J}\\
-\braket{K,K-1|J,J}&\braket{K,K-1|J,J-1}& \cdots & \braket{K,K-1|J,-J}\\
-\vdots &\ddots & \ddots & \vdots \\
-\braket{K,-K|J,J}&\braket{K,-K|J,J-1}& \cdots & \braket{K,-K|J,-J}\\
-\end{pmatrix}
+\prod_p b_{\alpha p}^\dagger \ket{0}=C_{\alpha,+}^4 \ket{J=2,J_z=2}+C_{\alpha,+}^3C_{\alpha,-} \ket{J=2,J_z=1}+C_{\alpha,+}^2C_{\alpha,-}^2 \ket{J=2,J_z=0}+C_{\alpha,+}C_{\alpha,-}^3 \ket{J=2,J_z=1}
 \end{equation}
 
-
-Finally we do exactly this for the case of $J=K=2$. we can incorporate this to find E as\\
-
-\begin{equation}
-E=\braket{\vec{J}|U^\dagger H U |\vec{J}}=\braket{\vec{\psi}|U H U^\dagger |\vec{\psi}} \end{equation}
-
-This has been explicitly incorporated into the pseudospin.py shown at the end. In the case that \\
-\begin{equation}
-\ket{\psi}=\prod_{p=1}^4 b_{\alpha,p}^\dagger \ket{0} \end{equation}
-
-It follows that we take the following values\\
-
-\begin{equation}
-E=\begin{pmatrix} 1 \\ 0 \\ 0 \\0 \\0 \end{pmatrix}^\dagger \begin{pmatrix} 
-\braket{2,2|2,2}&\braket{2,2|2,1}&  \cdots &    \braket{2,2|2,-2}\\
-\braket{2,1|2,2}&\braket{2,1|2,1}& \cdots & \braket{2,1|2,-2}\\
-\vdots &\ddots & \ddots & \vdots \\
-\braket{2,-1|2,2}&\braket{2,-1|2,1}& \cdots & \braket{2,-1|2,-2}\\
-\braket{2,-2|2,2}&\braket{2,-2|2,1}& \cdots & \braket{2,-2|2,-2}\\
-\end{pmatrix}H \begin{pmatrix}
-\braket{2,2|2,2}&\braket{2,2|2,1}&  \cdots &    \braket{2,2|2,-2}\\
-\braket{2,1|2,2}&\braket{2,1|2,1}& \cdots & \braket{2,1|2,-2}\\
-\vdots &\ddots & \ddots & \vdots \\
-\braket{2,-1|2,2}&\braket{2,-1|2,1}& \cdots & \braket{2,-1|2,-2}\\
-\braket{2,-2|2,2}&\braket{2,-2|2,1}& \cdots & \braket{2,-2|2,-2}\\
-\end{pmatrix}^\dagger \begin{pmatrix} 1 \\ 0 \\ 0 \\0 \\0 \end{pmatrix}
-\end{equation}
-	
- 
-From the attached python file we see that\\
+And so it is trivial to calculate the expectation value of $\psi$ as follows:\\
 
 \begin{equation}\resizebox{.9\hsize}{!}{$
-U=
-\left[\begin{smallmatrix}1.0 C_{{++}}^{4} & 4.0 C_{{++}}^{3} C_{{+-}} & 6.0 C_{{
-++}}^{2} C_{{+-}}^{2} & 4.0 C_{{++}} C_{{+-}}^{3} & 1.0 C_{{+-}}^{4}\\- 1.0 C_{{
-++}}^{3} \overline{C_{{+-}}} & 1.0 C_{{++}}^{3} C_{{--}} - 3.0 C_{{++}}^{2} C_{{
-+-}} \overline{C_{{+-}}} & 3.0 C_{{++}}^{2} C_{{+-}} C_{{--}} - 3.0 C_{{++}} C_{
-{+-}}^{2} \overline{C_{{+-}}} & 3.0 C_{{++}} C_{{+-}}^{2} C_{{--}} - 1.0 C_{{+-}
-}^{3} \overline{C_{{+-}}} & 1.0 C_{{+-}}^{3} C_{{--}}\\1.0 C_{{++}}^{2} \overline{C_{{+-}}}^{2} & - 2.0 C_{{++}}^{2} C_{{--}} \overline{C_{{+-}}} + 2.0 C_{{++}}
- C_{{+-}} \overline{C_{{+-}}}^{2} & 1.0 C_{{++}}^{2} C_{{--}}^{2} - 4.0 C_{{++}}
- C_{{+-}} C_{{--}} \overline{C_{{+-}}} + 1.0 C_{{+-}}^{2} \overline{C_{{+-}}}^{2
-} & 2.0 C_{{++}} C_{{+-}} C_{{--}}^{2} - 2.0 C_{{+-}}^{2} C_{{--}} \overline{C_{
-{+-}}} & 1.0 C_{{+-}}^{2} C_{{--}}^{2}\\- 1.0 C_{{++}} \overline{C_{{+-}}}^{3} &
- 3.0 C_{{++}} C_{{--}} \overline{C_{{+-}}}^{2} - 1.0 C_{{+-}} \overline{C_{{+-}}
-}^{3} & - 3.0 C_{{++}} C_{{--}}^{2} \overline{C_{{+-}}} + 3.0 C_{{+-}} C_{{--}} 
-\overline{C_{{+-}}}^{2} & 1.0 C_{{++}} C_{{--}}^{3} - 3.0 C_{{+-}} C_{{--}}^{2} 
-\overline{C_{{+-}}} & 1.0 C_{{+-}} C_{{--}}^{3}\\1.0 \overline{C_{{+-}}}^{4} & -
- 4.0 C_{{--}} \overline{C_{{+-}}}^{3} & 6.0 C_{{--}}^{2} \overline{C_{{+-}}}^{2}
- & - 4.0 C_{{--}}^{3} \overline{C_{{+-}}} & 1.0 C_{{--}}^{4}\end{smallmatrix}\right]$}\end{equation}
+\braket{\psi|H|\psi}=\begin{pmatrix}
+C_{++}^4 &C_{++}^3C_{+-}&C_{++}^2C_{+-}^2&C_{++}C_{+-}^3 &C_{+-}^4 \end{pmatrix}\begin{pmatrix} 2\epsilon & 0 &2.45 V & 0 & 0\\
+			0 & 3 W + \epsilon & 0& 3 V & 0\\
+			2.45 V & 0 & 4W & 0 & 2.45 V\\
+			0 & 3 V & 0 & 3 W-\epsilon & 0 \\
+			0 & 0 & 2.45 V & 0 &-2\epsilon  \end{pmatrix} \begin{pmatrix}
+C_{++}^4 \\C_{++}^3C_{+-}\\C_{++}^2C_{+-}^2\\C_{++}C_{+-}^3 \\C_{+-}^4 \end{pmatrix}$}\end{equation}
 
-Returning to the previous we see then that this is equal to\\
+\begin{equation}\resizebox{.9\hsize}{!}{$
+\braket{\psi|H|\psi}=\begin{pmatrix}
+C_{++}^4 &C_{++}^3C_{+-}&C_{++}^2C_{+-}^2&C_{++}C_{+-}^3 &C_{+-}^4 \end{pmatrix}\begin{pmatrix}
+2\epsilon C_{++}^4 +2.45VC_{++}^2C_{+-}^2 \\(3W+\epsilon)C_{++}^3C_{+-}+3W C_{++}C_{+-}^3\\4WC_{++}^2C_{+-}^2+2.45V(C_{++}^4+C_{+-}^4)\\(3W-\epsilon)C_{++}C_{+-}^3+3VC_{++}^3C_{+-} \\-2\epsilon C_{+-}^4 +2.45VC_{++}^2C_{+-}^2\end{pmatrix}$}\end{equation}
+
+\begin{equation}\resizebox{.9\hsize}{!}{$
+\braket{\psi|H|\psi}=2\epsilon C_{++}^8+\left(4.9V+3W+\epsilon\right)C_{++}^6C_{+-}^2+10WC_{++}^4C_{+-}^4+\left(3W-\epsilon+4.9V\right)C_{++}^2C_{+-}^6-2\epsilon C_{+-}^8
+$}\end{equation}
+
+
+
+\section{Minimizing Energy}
+
+We note that to minimize the energy we can take a total derivative. However, we might also note that because of the unitaritiy of the matrix C, it follows that if the terms are all real that\\
 
 \begin{equation}
-\begin{pmatrix} \braket{2,2|2,2} \\ \braket{2,2|2,1} \\ \vdots \\ \braket{2,2|2,-2} \end{pmatrix}^\dagger H \begin{pmatrix} \braket{2,2|2,2} \\ \braket{2,1|2,2} \\ \vdots \\ \braket{2,-2|2,2}\end{pmatrix}\end{equation}
+C_{+-}=\sqrt{1-C_{++}}^2 \end{equation}
+
+And so we have that\\
+
+\begin{equation}\resizebox{.9\hsize}{!}{$
+\braket{\psi|H\psi}=2\epsilon C_{++}^8+\left(4.9V+3W+\epsilon\right)C_{++}^6(1-C_{++})+10WC_{++}^4(1-C_{++})^2+\left(3W-\epsilon+4.9V\right)C_{++}^2(1-C_{++})^3-2\epsilon (1-C_{++})^4
+$}\end{equation}
+
+
+Further simplifying we then have that\\
+
+\begin{equation}\resizebox{.9\hsize}{!}{$
+\braket{\psi|H\psi}=
+\left( 16\epsilon + \right)C_{++}^8
+\end{equation}
+
+So taking this derivative and setting it to zero we have\\
+
+\begin{equation}\resizebox{.9\hsize}{!}{$
+16\epsilon C_{++}^7-7\left(4.9V+3W+\epsilon\right)C_{++}^6+5\left(4.9V-10W+\epsilon\right)C_{++}^5+4\left(-23W+\epsilon-4.9W\right)C_{++}^4+\left(19W-5\epsilon+4.9V\right)C_{++}^3+3\left(9W+5\epsilon+4.9V\right)C_{++}^2+2\left(3W-13\epsilon+4.9\right)C_{++}+8\epsilon $}=0\end{equation}
 
 
 
 \end{document}
-

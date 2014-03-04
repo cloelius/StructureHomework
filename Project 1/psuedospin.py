@@ -44,17 +44,17 @@ class Hamiltonian:
                     j=j+1
                 i=i+1
             i=0
-            while(i<2*J+1):
-                j=0
+            #while(i<2*J+1):
+             #   j=0
                 
-                while(j<2*J+1):
+                #while(j<2*J+1):
                  #   if( i>j):
-                #        umat[i][j]=umat[j][i].conjugate()
+                        #umat[i][j]=-umat[j][i].conjugate()
                         
                     #umat[i][j]=self.GetUMatElement(2*J-i,2*J-j)
                  #   print(self.GetUMatElement(2*J-i,2*J-j))
-                    j=j+1
-                i=i+1
+                  #  j=j+1
+                #i=i+1
                 
             if sym:
                 umat=sympy.matrices.Matrix(umat)
@@ -78,14 +78,15 @@ class Hamiltonian:
             while(n<=self.Jms.J+Jz):
               m=n-Jz-Kz
               if(m>=0):
-                if(check):
-                    el=scipy.special.binom(J+Kz,n)*self.Cpp**n*self.Cpm**(J+Kz-n)
-                    el=el*scipy.special.binom(J-Kz,m)*self.Cmm**m *self.Cmp**(J-Kz-m)
-                    matel=matel+el 
-                else:
-                    el=scipy.special.binom(J+Kz,n)*self.Cpp**(J+Kz-n)*self.Cpm**(n)
-                    el=el*scipy.special.binom(J-Kz,m)*self.Cmm**(J-Kz-m) *self.Cmp**(m)
-                    matel=matel+el 
+                if(scipy.special.binom(J+Kz,n)>0 and scipy.special.binom(J-Kz,m)>0):
+                    el=self.Cpp**n*self.Cpm**(J+Kz-n)
+                    el=el*self.Cmm**m *self.Cmp**(J-Kz-m)
+                    #el=el*(scipy.special.binom(J-n,n))
+                  #  el=el*np.sqrt(scipy.special.binom(J-Kz,m))
+                  #  el=el*np.sqrt(scipy.special.binom(J+Kz,m))
+                    matel=matel+el
+                
+                    
               n=n+1
             return matel
                     
@@ -180,7 +181,7 @@ Ens=Hamiltonian(Wsym,Vsym,esym,JMats(2))
 CPP=sympy.Symbol('C_{++}')
 CMM=sympy.Symbol('C_{--}')
 CPM=sympy.Symbol('C_{+-}')
-En2.GenCmat(.4,0)
+En2.GenCmat(.707,0)
 #En2.GenCmat(1-.4,0)
 #En2.GenCmat(.99999999999999,0)
 
@@ -195,9 +196,9 @@ En2.SetUmat()
 #print(((sympy.matrices.Matrix(Ens.Umatrix))*sympy.matrices.Matrix(Ens.H)*(sympy.matrices.Matrix(Ens.Umatrix))).row(0))
 
 #print(sympy.latex(En1.Umatrix))
-print(En2.Umatrix)
-En2.GenCmat(1-.4,0)
-En2.SetUmat()
+#print(En2.Umatrix)
+#En2.GenCmat(1-.4,0)
+#En2.SetUmat()
 #print(En2.Umatrix)
 
 #print(Ens.Umatrix)
@@ -221,13 +222,13 @@ En2.SetUmat()
 
 
 
-#print(En2.Umatrix)
+print(En2.Umatrix)
 #print(En2.GetUMatElement(1,0))
 #print(En2.GetUMatElement(0,1))
-#print(np.linalg.det(En2.Cmat))
-#print(np.linalg.det(En2.Umatrix))
-print(En2.Umatrix.conj().transpose())
-print(np.linalg.inv(En2.Umatrix)-En2.Umatrix)
+print(np.linalg.det(En2.Cmat))
+print(np.linalg.det(En2.Umatrix))
+#print(En2.Umatrix.conj().transpose())
+#print(np.linalg.inv(En2.Umatrix)-En2.Umatrix)
 
 
 #print(printlatex(En3.eigvecs))
