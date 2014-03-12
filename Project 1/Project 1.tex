@@ -750,84 +750,75 @@ We note that in this transformation we have not changed p in constructing new pa
 
 \section{Calculate the new Slater Determinant}
 
+In this section we calculate the new Slater Deterimant using the original creation and annhilation operators. We then have that \\
+\begin{equation} \ket{\psi}=\prod_p \left(C_{\alpha+}a_{p+}^\dagger+C_{\alpha -}a_{p -}^\dagger \right)\ket{0} \end{equation}We note that \\
 
-Now we can calculate the new slater Determinant in general by constructing a rotation matrix in $SU(4)$ which can be constructed from the unitary matrix used to create the new basis particles. However, for the given case where we are rotating into a state $\prod_p b_{\alpha p}^\dagger \ket{0}$, it is clear we can solve this fairly straightforwardly. 
+\begin{equation} H_0=\frac{1}{2}\epsilon \sum_{\sigma,p} \sigma a_{\sigma,p}^\dagger a_{\sigma,p} \end{equation}
 
-We begin by noting that 
+So we have that\\
 
-\begin{equation}b_{\alpha, p}^\dagger=\left(C_{\alpha+}a_{+,p}^\dagger+C_{\alpha-} a_{-,p}^\dagger \right)\end{equation}
+\begin{equation} \bra{\psi} H_0 \ket{\psi}=\bra{0}\prod_p \left(C_{\alpha+}^*a_{p+}+C_{\alpha -}^*a_{p -}\right) \frac{1}{2}\epsilon \sum_{\sigma,p} \sigma a_{\sigma,p}^\dagger a_{\sigma,p}\prod_p \left(C_{\alpha+}a_{p+}^\dagger+C_{\alpha -}a_{p -}^\dagger \right) \ket{0}\end{equation}
 
-Now from this we see that to construct the state needed we are left with\\
-\begin{equation}\prod_p b_{\alpha p}^\dagger \ket{0}=\prod_p \left(C_{\alpha+}a_{+,p}^\dagger+C_{\alpha-} a_{-,p}^\dagger \right)\end{equation}
 
-We however can then note that we can then fully expand this as\\
-\begin{equation}\prod_p b_{\alpha, p}^\dagger=\left(C_{\alpha+}a_{+,0}^\dagger+C_{\alpha-} a_{-,0}^\dagger \right)
-\left(C_{\alpha+}a_{+,1}^\dagger+C_{\alpha-} a_{-,1}^\dagger \right)\left(C_{\alpha+}a_{+,2}^\dagger+C_{\alpha-} a_{-,2}^\dagger \right)\left(C_{\alpha+}a_{+,3}^\dagger+C_{\alpha-} a_{-,3}^\dagger \right)
-\end{equation}
 
-This can be further expanded as(supressing the dagger for readability, interpret these as creation operators)\\
+Let us now consider an individual term in the sum. We thus have, letting i be the index of the chosen term and sigma the spin state:\\
+\begin{equation}\resizebox{.9\linewidth}{!}{$
+ \bra{\psi} H_0 \ket{\psi}=\bra{0}\prod_{p\neq i} \left(C_{\alpha+}^*a_{p+}+C_{\alpha -}^*a_{p -} \right)\left(C_{\alpha+}^*a_{i+}+C_{\alpha -}^*a_{i -} \right) \frac{1}{2}\epsilon  \sigma a_{\sigma,i}^\dagger a_{\sigma,i}\left(C_{\alpha+}a_{i+}^\dagger+C_{\alpha -}a_{i -}^\dagger \right)\prod_{p\neq i} \left(C_{\alpha+}a_{p+}^\dagger+C_{\alpha -}a_{p -}^\dagger \right) \ket{0} $}\end{equation}
 
-\begin{equation}\resizebox{.9\hsize}{!}{$
-C_{\alpha+}^4 a_{+,0}a_{+,1}a_{+,2}a_{+,3}+C_{\alpha+}^3C_{\alpha-} \left(a_{-,0}a_{+,1}a_{+,2}a_{+,3}+a_{+,0}a_{-,1}a_{+,2}a_{+,3}+a_{+,0}a_{+,1}a_{-,2}a_{+,3}+a_{+,0}a_{+,1}a_{+,2}a_{-,3}\right)+
-C_{\alpha+}^2C_{\alpha-}^2 \left(a_{+,0}a_{+,1}a_{-,2}a_{-,3}+a_{+,0}a_{-,1}a_{+,2}a_{-,3}+a_{+,0}a_{-,1}a_{-,2}a_{+,3}+a_{-,0}a_{+,1}a_{+,2}a_{-,3}+a_{-,0}a_{+,1}a_{-,2}a_{+,3}+a_{-,0}a_{-,1}a_{+,2}a_{+,3}\right)
-+C_{\alpha+}C_{\alpha-}^3\left(a_{-,0}a_{+,1}a_{+,2}a_{+,3}+a_{+,0}a_{-,1}a_{+,2}a_{+,3}+a_{+,0}a_{+,1}a_{-,2}a_{+,3}+a_{+,0}a_{+,1}a_{+,2}a_{-,3}\right)+
-C_{\alpha-}^4 a_{-,0}a_{-,1}a_{-,2}a_{-,3}$}
-\end{equation}
-
-This simplifies easily to\\
+Now we can immediately note that for the terms not equal to i we wind up with their products multiplying together, and that any term where the anhilation operator does not meet the creation operator will be destroyed. As such we must have\\
 
 \begin{equation}
-\prod_p b_{\alpha p}^\dagger \ket{0}=C_{\alpha,+}^4 \ket{J=2,J_z=2}+C_{\alpha,+}^3C_{\alpha,-} \ket{J=2,J_z=1}+C_{\alpha,+}^2C_{\alpha,-}^2 \ket{J=2,J_z=0}+C_{\alpha,+}C_{\alpha,-}^3 \ket{J=2,J_z=1}
-\end{equation}
+\prod_{p}\left(C_{\alpha+}^*C_{\alpha+}a_{p+}a_{p+}^++C_{\alpha-}^*C_{\alpha-}a_{p-}a_{p-}^+\right)\end{equation}
 
-And so it is trivial to calculate the expectation value of $\psi$ as follows:\\
+But from the unitarity it follows that, if the terms are real\\
 
-\begin{equation}\resizebox{.9\hsize}{!}{$
-\braket{\psi|H|\psi}=\begin{pmatrix}
-C_{++}^4 &C_{++}^3C_{+-}&C_{++}^2C_{+-}^2&C_{++}C_{+-}^3 &C_{+-}^4 \end{pmatrix}\begin{pmatrix} 2\epsilon & 0 &2.45 V & 0 & 0\\
-			0 & 3 W + \epsilon & 0& 3 V & 0\\
-			2.45 V & 0 & 4W & 0 & 2.45 V\\
-			0 & 3 V & 0 & 3 W-\epsilon & 0 \\
-			0 & 0 & 2.45 V & 0 &-2\epsilon  \end{pmatrix} \begin{pmatrix}
-C_{++}^4 \\C_{++}^3C_{+-}\\C_{++}^2C_{+-}^2\\C_{++}C_{+-}^3 \\C_{+-}^4 \end{pmatrix}$}\end{equation}
+\begin{equation}C_{\alpha+}^2+C_{\alpha-2}^2=1 \end{equation}
 
-\begin{equation}\resizebox{.9\hsize}{!}{$
-\braket{\psi|H|\psi}=\begin{pmatrix}
-C_{++}^4 &C_{++}^3C_{+-}&C_{++}^2C_{+-}^2&C_{++}C_{+-}^3 &C_{+-}^4 \end{pmatrix}\begin{pmatrix}
-2\epsilon C_{++}^4 +2.45VC_{++}^2C_{+-}^2 \\(3W+\epsilon)C_{++}^3C_{+-}+3W C_{++}C_{+-}^3\\4WC_{++}^2C_{+-}^2+2.45V(C_{++}^4+C_{+-}^4)\\(3W-\epsilon)C_{++}C_{+-}^3+3VC_{++}^3C_{+-} \\-2\epsilon C_{+-}^4 +2.45VC_{++}^2C_{+-}^2\end{pmatrix}$}\end{equation}
-
-\begin{equation}\resizebox{.9\hsize}{!}{$
-\braket{\psi|H|\psi}=2\epsilon C_{++}^8+\left(4.9V+3W+\epsilon\right)C_{++}^6C_{+-}^2+10WC_{++}^4C_{+-}^4+\left(3W-\epsilon+4.9V\right)C_{++}^2C_{+-}^6-2\epsilon C_{+-}^8
-$}\end{equation}
-
-
-
-\section{Minimizing Energy}
-
-We note that to minimize the energy we can take a total derivative. However, we might also note that because of the unitaritiy of the matrix C, it follows that if the terms are all real that\\
+And so this term simply becomes 1. We are thus left only with\\
 
 \begin{equation}
-C_{+-}=\sqrt{1-C_{++}}^2 \end{equation}
-
-And so we have that\\
-
-\begin{equation}\resizebox{.9\hsize}{!}{$
-\braket{\psi|H\psi}=2\epsilon C_{++}^8+\left(4.9V+3W+\epsilon\right)C_{++}^6(1-C_{++})+10WC_{++}^4(1-C_{++})^2+\left(3W-\epsilon+4.9V\right)C_{++}^2(1-C_{++})^3-2\epsilon (1-C_{++})^4
-$}\end{equation}
+\bra{\psi}H_0'\ket{\psi} \bra{0}\left(C_{\alpha+}^*a_{i+}+C_{\alpha -}^*a_{i -} \right) \frac{1}{2}\epsilon  \sigma a_{\sigma,i}^\dagger a_{\sigma,i}\left(C_{\alpha+}a_{i+}^\dagger+C_{\alpha -}a_{i -}^\dagger \right) \ket{0}\end{equation}
 
 
-Further simplifying we then have that\\
+We note here that the result will depend on sigma. For $\sigma=+$ the minus terms will commute and so will anhilate unless matched.But in this case it would lead to the anhilation operator from the hamiltonian acting on the zero state, so the minus terms do not contribute.\\
 
-\begin{equation}\resizebox{.9\hsize}{!}{$
-\braket{\psi|H\psi}=
-\left( 16\epsilon + \right)C_{++}^8
-\end{equation}
+\begin{equation}
+\bra{\psi}H_0'\ket{\psi} =\bra{0}C_{\alpha+}^*a_{i+} \frac{1}{2}\epsilon   a_{\sigma,i}^\dagger a_{\sigma,i}C_{\alpha+}a_{i+}^\dagger \ket{0}\end{equation}
 
-So taking this derivative and setting it to zero we have\\
+But this is easily seen to just be equal to
+\begin{equation}
+\bra{\psi}H_0'\ket{\psi}=\frac{1}{2} \bra{0}C_{\alpha+}^*\epsilon C_{\alpha+} \ket{0}=\frac{\epsilon}{2}|C_{\alpha +}|^2\end{equation}
 
-\begin{equation}\resizebox{.9\hsize}{!}{$
-16\epsilon C_{++}^7-7\left(4.9V+3W+\epsilon\right)C_{++}^6+5\left(4.9V-10W+\epsilon\right)C_{++}^5+4\left(-23W+\epsilon-4.9W\right)C_{++}^4+\left(19W-5\epsilon+4.9V\right)C_{++}^3+3\left(9W+5\epsilon+4.9V\right)C_{++}^2+2\left(3W-13\epsilon+4.9\right)C_{++}+8\epsilon $}=0\end{equation}
+Now we see that adding the minus term in we will have\\
+\begin{equation}
+\bra{\psi}H_0'\ket{\psi}=\frac{\epsilon}{2}\left(|C_{\alpha +}|^2-|C_{\alpha-}|^2\right)\end{equation}
+
+Finally we see that adding each of the four terms\\
+\begin{equation} \bra{\psi}H_0 \ket{\psi}= 2\epsilon \left(|C_{\alpha +}|^2-|C_{\alpha-}|^2\right) \end{equation}
+
+Next we consider \\
+\begin{equation}
+H_1=\frac{1}{2}V \sum_{\sigma,p,p'} a_{\sigma,p}^\dagger a_{\sigma,p'}^\dagger a_{-\sigma,p'}a_{-\sigma,p} \end{equation}
 
 
+As before we consider
+
+\begin{equation} \bra{\psi} H_0 \ket{\psi}=\bra{0}\prod_p \left(C_{\alpha+}^*a_{p+}+C_{\alpha -}^*a_{p -} \right)\frac{1}{2}V \sum_{\sigma,p,p'} a_{\sigma,p}^\dagger a_{\sigma,p'}^\dagger a_{-\sigma,p'}a_{-\sigma,p}\prod_p \left(C_{\alpha+}a_{p+}^\dagger+C_{\alpha -}a_{p -}^\dagger \right) \ket{0}\end{equation}
+
+And again we look at a single value of p and p'. In this case, as before, any terms not involving p or p' will multiply out to 1, and so we have for one term of p,p' and $\sigma$\\
+
+\begin{equation}\bra{\psi} H_0 \ket{\psi}=\bra{0}\prod_{p,p'} \left(C_{\alpha+}^*a_{p+}+C_{\alpha -}^*a_{p -} \right)\frac{1}{2}V  a_{\sigma,p}^\dagger a_{\sigma,p'}^\dagger a_{-\sigma,p'}a_{-\sigma,p}\prod_{p,p'} \left(C_{\alpha+}a_{p+}^\dagger+C_{\alpha -}a_{p -}^\dagger \right) \ket{0}\end{equation}
+
+Noting that if p is equal to p' the two anhilation multipliers in the hamiltonian will lead to anhilation of the state vector and so we know that $p\neq p'$. We then recognize that since the two anhilation parameters have the same spin, it follows that only the anhilation parameters and the  coefficients to the power of two will have an effect. This happens exactly the same on the bra side by the symmetry of the problem, except that the spins are different. There are two for each because we can pick the positive spin on the ket or bra side. We would thereby have\\
+
+\begin{equation}
+\bra{\psi}H_1'\ket{\psi}=V\sum_\sigma \ket{0} C_{\alpha \sigma}^2 C_{\alpha -\sigma}^2 a_{p}a_{p'}a_{p}^\dagger a_{p'}^\dagger a_{p}a_{p'}a_{p}^\dagger a_{p'}^\dagger \ket{0}=2V C_{\alpha -}^2C_{\alpha+}^2\end{equation}
+
+Finally we note that there is such  term as this for each combination of $p,p'$. There are $\binom{4}{2}=6$ and so\\
+
+\begin{equation}
+\bra{\psi}H_1\ket{\psi}=12VC_{\alpha+}^2C_{\alpha-}^2 \end{equation}
+
+(Again assuming real unitary matrix coefficients.\\
 
 \end{document}
