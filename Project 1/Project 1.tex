@@ -812,13 +812,50 @@ And again we look at a single value of p and p'. In this case, as before, any te
 Noting that if p is equal to p' the two anhilation multipliers in the hamiltonian will lead to anhilation of the state vector and so we know that $p\neq p'$. We then recognize that since the two anhilation parameters have the same spin, it follows that only the anhilation parameters and the  coefficients to the power of two will have an effect. This happens exactly the same on the bra side by the symmetry of the problem, except that the spins are different. There are two for each because we can pick the positive spin on the ket or bra side. We would thereby have\\
 
 \begin{equation}
-\bra{\psi}H_1'\ket{\psi}=V\sum_\sigma \ket{0} C_{\alpha \sigma}^2 C_{\alpha -\sigma}^2 a_{p}a_{p'}a_{p}^\dagger a_{p'}^\dagger a_{p}a_{p'}a_{p}^\dagger a_{p'}^\dagger \ket{0}=2V C_{\alpha -}^2C_{\alpha+}^2\end{equation}
+\bra{\psi}H_1'\ket{\psi}=V\sum_\sigma \bra{0} C_{\alpha \sigma}^2 C_{\alpha -\sigma}^2 a_{p}a_{p'}a_{p}^\dagger a_{p'}^\dagger a_{p}a_{p'}a_{p}^\dagger a_{p'}^\dagger \ket{0}=2V C_{\alpha -}^2C_{\alpha+}^2\end{equation}
 
 Finally we note that there is such  term as this for each combination of $p,p'$. There are $\binom{4}{2}=6$ and so\\
 
 \begin{equation}
 \bra{\psi}H_1\ket{\psi}=12VC_{\alpha+}^2C_{\alpha-}^2 \end{equation}
 
-(Again assuming real unitary matrix coefficients.\\
+(Again assuming real unitary matrix coefficients.)\\
 
+Finally we consider the \\
+\begin{equation}
+H_2 =\frac{W}{2} \sum_{\sigma,p,p'} a_{\sigma,p}^\dagger a_{-\sigma,p'}^\dagger a_{\sigma,p'}a_{-\sigma,p}\end{equation}
+
+However, we note immediately that the same arguments as before hold, that p must not equal p'. From that it follows that the operators will commute into the form of $H_1$ and as such we can immediately have that\\
+
+\begin{equation}
+\bra{\psi} H_2 \ket{\psi}=12 W C_{\alpha +}^2 C_{\alpha -}^2 \end{equation}
+
+From which finally we have that\\
+
+\begin{equation}
+\bra{\psi}H\ket{\psi}=2\epsilon\left(C_{\alpha+}^2-C_{\alpha-}^2\right)+12(W+V)C_{\alpha+}^2C_{\alpha-}^2 \end{equation}
+
+\section{Energy minimization}
+
+In order to minimize the energy we need to take the derivative with respect to $C_{\alpha+}$ or $C_{\alpha -}$. From this it follows that we can substitute $C_{\alpha-}^2=1-C_{\alpha+}^2$.\\
+
+As such we have \\
+
+\begin{equation}E=2\epsilon\left(1+2C_{\alpha+}^2\right)+12\left(W+V\right)\left(C_{\alpha+}^2-C_{\alpha+}^4\right)\end{equation}
+
+We then have that\\
+
+\begin{equation}
+8\epsilon C_{\alpha+}+12\left(W+V\right)\left(2C_{\alpha +}-4C_{\alpha +}^2\right) \end{equation}
+
+Then setting that to zero we ahve\\
+
+\begin{equation}
+\epsilon=3\left(W+V\right)\left(-1+2C_{\alpha+}\right)\end{equation}
+
+Finally because this takes its minimum value when $C_{\alpha+}=0$ it follows that\\
+
+\begin{equation}
+\frac{\epsilon}{3}\geq \left(V+W\right)
+\end{equation}
 \end{document}
