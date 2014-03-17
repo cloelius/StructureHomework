@@ -3,16 +3,16 @@ from itertools import combinations as cwr
 from MatrixElCalc import *
 import numpy as np
 states=[]
-numparts=2
+numparts=4
 for it in range(numparts):
     states.append(State([QuantumNumber("p",it),QuantumNumber("sigma",'+')]))
     states.append(State([QuantumNumber("p",it),QuantumNumber("sigma",'-')]))
 H0=TotalHamiltonian([])
 H1=TotalHamiltonian([])
 H2=TotalHamiltonian([])
-epsilon=1
-V=2
-W=1
+epsilon=10
+V=-1
+W=-1
 for state in states:
     if state.GetVal("sigma") =='+':
         H0.Add(Hamiltonian(epsilon/2.0,[state.anop,state.creop]))
@@ -98,36 +98,82 @@ class HamilMat:
         states=self.states
         Htot=self.H
         mat=np.zeros([len(states),len(states),len(states),len(states)])
-        
-        
-        
-        
-        
-        
-        
-        
         for i,state in enumerate(states):
             for j,state1 in enumerate(states):
-                #vec1=StateVec([state,state1])
-                for state2 in states:
-                    mat[i][j]=GetMatrixElement(Htot,state,state1)
-            self.mat=mat
-              #  if (i>10):
-               #     return 0
-                 #   for state3 in states:
-                #        vec2=StateVec([state2,state3])
-               #         mat[i][j]=(GetMatrixElement(Htot,vec1,vec2))
-              #          del vec2
+                vec1=StateVec([state,state1])
+                for k, state2 in enumerate(states):
+                 for l, state3 in enumerate(states):
+                     vec2=StateVec([state2,state3])
+                     mat[i][j][k][l]=GetMatrixElement(self.H,vec1,vec2)
                      
-             #   del vec1
-            #return mat
+        self.mat=mat
+#EnergyMat=HamilMat(H0,states,1)
+#EnergyMat.MakeMatrix()
+def HartreeFock(TwoMatrix,EnergiesMatrix,Cinit,states,tolerance=.000000000000001,minit=1):
+    Emat=copy.deepcopy(EnergiesMatrix)
+    Matrix=copy.deepcopy(TwoMatrix)
+    C=copy.deepcopy(Cinit)
+    Hfmat=np.zeros([len(states),len(states)])
+    for i in range(len(Hfmat)):
+        for j in range(len(Hfmat)):
+            Hfmat[i][j]=Emat[i][j]
+            for g in range(len(Hfmat)): 
+                for k in range(len(Hfmat)):
+                    for l in range(len(Hfmat)):
+                        Hfmat[i][j]+=C[g][k]*C[g][l]*Matrix.mat[i][j][k][l]
 
-EnergyMat=HamilMat(H0,states,1)
-EnergyMat.MakeMatrix()
+    Ens,C=np.linalg.eig(Hfmat)
+    for i in range(len(Emat)):
+        Emat[i][i]=Ens[i]
+    Enold=min(Ens)
+    Continue=True
+    iter=0
+    while(Continue or iter<minit):
+      #  print(iter)
+        iter=iter+1
+        Hfmat=np.zeros([len(states),len(states)])
+        for i in range(len(Hfmat)):
+            for j in range(len(Hfmat)):
+                Hfmat[i][j]=Emat[i][j]
+                for g in range(len(Hfmat)): 
+                    for k in range(len(Hfmat)):
+                        for l in range(len(Hfmat)):
+                            Hfmat[i][j]+=C[g][k]*C[g][l]*Matrix.mat[i][j][k][l]
+        Ens,C=np.linalg.eig(Hfmat)
+        En=min(Ens)
+        
+        for i in range(len(Emat)):
+            Emat[i][i]=Ens[i]
+            #print(Emat)
+
+        if(np.abs(En-Enold) <tolerance):
+           # print(iter)
+            Continue=False
+          #  print(En)
+        Enold=En
+        
+    return [En,Ens,C]
+    
+
+Emat=np.eye(len(states))
+for i,  state in enumerate(states):
+    for  j,state1 in enumerate(states):
+        Emat[i][j]=GetMatrixElement(H0,StateVec([state]),StateVec([state1]))
 Matrix=HamilMat(Htot,states,2)
 Matrix.MakeMatrix()
 #for i in range(len(Matrix.mat)):
  #   Matrix.mat[i][i]+=EnergyMat.mat[i][i]
-C=np.eye(len(states))
+C=np.zeros([len(states),len(states)])
+C.fill(np.sqrt(1.0/len(states)))
+#for i in range(len(C)):
+#    C[0][i]=1
 
+Hfmat=np.zeros([len(states),len(states)])
+for i in range(len(Hfmat)):
+    for j in range(len(Hfmat)):
+        Hfmat[i][j]=Emat[i][j]
+        for g in range(len(Hfmat)): 
+         for k in range(len(Hfmat)):
+            for l in range(len(Hfmat)):
+                Hfmat[i][j]+=C[g][k]*C[g][l]*Matrix.mat[i][j][k][l]
 
