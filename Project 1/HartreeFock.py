@@ -10,9 +10,9 @@ for it in range(numparts):
 H0=TotalHamiltonian([])
 H1=TotalHamiltonian([])
 H2=TotalHamiltonian([])
-epsilon=10
-V=-1
-W=-1
+epsilon=2.0#To change the relative strengths of the hamiltonians H0,H1,H2 just change these variables and re run
+V=0
+W=-1.0/5.0
 for state in states:
     if state.GetVal("sigma") =='+':
         H0.Add(Hamiltonian(epsilon/2.0,[state.anop,state.creop]))
@@ -69,6 +69,7 @@ for Ham in H2.Hamiltonians:
     
 vec=StateVec()
 class HamilMat:
+    "This class creates the matrix elements of a 2 single particle state system with a given hamiltonian. It can be run either based on states that can be operated or the explciit state vectors that are involved. These are then stored in an output matrix for quick calculation"
     kets=[]
     states=[]
     H=[]
@@ -110,6 +111,7 @@ class HamilMat:
 #EnergyMat=HamilMat(H0,states,1)
 #EnergyMat.MakeMatrix()
 def HartreeFock(TwoMatrix,EnergiesMatrix,Cinit,states,tolerance=.000000000000001,minit=1):
+    "This function performs the Hartree Fock calculation, given a matrix of 2 state interactions, energies(a diagonal matrix), the initial guess for the C matrix, the states under consideration(in principle just a list of the length of those states), the tolerance between iterations, and a separate minimum number of iterations"
     Emat=copy.deepcopy(EnergiesMatrix)
     Matrix=copy.deepcopy(TwoMatrix)
     C=copy.deepcopy(Cinit)
