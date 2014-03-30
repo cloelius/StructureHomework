@@ -160,7 +160,101 @@ U_{so}=\frac{A}{2}\left(J(J+1)-L(L+1)-S(S+1)\right)=\frac{A}{2}\left(J(J+1)-J(J+
 
 The same holds for the spin singlet states where $S=0$, as is reasoanble.\\
 
+\subsection{Expectation value of pauli matricies}
+\begin{equation}
+\braket{\sigma_1 \cdot \sigma_2}=\frac{1}{2}\left((\sigma_1+\sigma_2)^2-\braket{\sigma_1^2}-\braket{\sigma_2}^2\right)
+=\frac{1}{2} \left(\braket{(\sigma_1+\sigma_2)^2}-6\right)
+\end{equation}
+
+Here we have done the same as before with the sum, and have noted that $\vec{\sigma}=\braket{\sigma_1,\sigma_2,\sigma_3}$ . We then note that $\sigma_i \cdot \sigma_i =I$, and so $\vec{\sigma}\cdot \vec{\sigma}=3$
+
+\subsection{All cases for $\braket{\sigma_1 \cdot \sigma_2 \tau_1 \cdot \tau_2}$}
+
+We begin by noting that S=0 implies $\braket{(\sigma_1+\sigma_2)^2}=0$ and $S=1$ implies $\braket{(\sigma_1+\sigma_2)^2}=8=2^2*1(1+1)$ and the same is true for the $\tau$ matricies(assuming spin one half particles).\\
+
+We can thus make a table of the values of this product as\\
+\FloatBarrier
+\begin{table}[bht!]
+\centering
+\begin{tabular}{c|c|c}
+$\sigma$ & $\tau$ & $\braket{\sigma_1 \cdot \sigma_2 \tau_1 \cdot \tau_2}$\\
+0 & 0 & 9\\
+0 & 1 & -3\\
+1 & 0 & -3\\
+1 &1 &1
+\end{tabular}
+\end{table}
+\section{Exercise 11}
+
+We now consider the V8 potential model with\\
+
+\begin{equation}
+V(r)=\left(C_C^0+C_C^1+C_\sigma \sigma_1 \cdot \sigma_2 + C_T \left( 1+\frac{3}{m_\alpha r} +\frac{3}{(m_\alpha r)^2}\right) S_{12}(\hat{r})+C_{SL}\left(\frac{1}{m_\alpha r}+\frac{1}{(m_\alpha r)^2}\right) L\cdot S\right) \frac{e^{-m_\alpha r}}{m_\alpha r}
+\end{equation}
 
 
+Now we then consider ony the one pion exchange term. This is:\\
+
+\begin{equation}
+V(r)=\frac{-f_\pi^2}{4\pi m_\pi^2 }\frac{\tau_1 \cdot \tau_2}{3}\left( \sigma_1 \cdot \sigma_2 +  \left( 1+\frac{3}{m_\alpha r} +\frac{3}{(m_\alpha r)^2}\right) S_{12}(\hat{r})\right)  \frac{e^{-m_\alpha r}}{m_\alpha r}
+\end{equation}
+
+Now we can expand the table from previously to see what the effects are on the different states we found were possible. Obviously in this case we consider only the two particle states.\\
+
+\begin{table}[hbt!]
+\centering
+\caption{Table of expectation values}
+\begin{tabular}{c|c|c|c}
+Partial Wave & $\braket{\sigma_1 \cdot \sigma_2}$ & $\braket{\tau_1 \cdot \tau_2}$ & $ \braket{S_{12}}$ \\
+$^1 S_0$ & -3 & 1 & 0 \\
+$^1 P_1 $& -3 & 1 & 0\\
+$^1 D_2$ & -3 & 1 & 0\\
+$^1 S_0$ & -3 & -3 & 0\\
+$^1 P_1 $& -3 & -3 & 0\\
+$^1 D_2 $& -3 & -3 & 0\\
+$^3 S_1 $& 1 & -3 & 0\\
+$^3 P_0 $& 1 & -3 & 0\\
+$^3 P_1 $& 1 & -3 & 2\\
+$^3 P_2 $& 1 & -3 &$\frac{-2}{5} $\\
+$^3 D_1 $& 1 & -3 &$ -\frac{16}{5}$\\
+$^3 D_2 $& 1 & -3 & 2\\
+$^3 D_3 $& 1 & -3 & $-\frac{4}{7}$\\
+
+\end{tabular}
+
+\end{table}
+
+The most salient features of this table are two fold. The first is the fact that for any of the isospin =1 cases there is no tensor force and the spin spin force is strongly negative, while the isospin force is somewhat positive. Their product is thus negative, and this is what enters into the force equation. However for the isospin antisymmetric cases, the cases where the spins are not alligned leads to the spin spin and isospin force with a product of $-3 \times -3=9$, but no spin orbit. Finally for the caases where the spins are alligned but the isospin projections are 0, we have in the case where the total spin is equal to the orbital angular momentum an additional spin tensor force that opposes the spin spin force, and in all other cases where $L\neq J$ an additional negative term. \\
+
+\subsection{Dueteron Binding Energy}
+
+The deuteron's ground state is a mixture of the $^{3}S_1$ state  and the $^{3}D_1$ state. We see then that we can construct a graph based on the fact that\\
+
+\begin{equation}
+V_{\sigma \cdot \sigma}\approx - \braket{\tau_1 \cdot \tau_2} \braket{\sigma_1 \cdot \sigma_2}\end{equation}
+
+\begin{equation}
+V_{S_{12}}\approx -\braket{\tau_1 \cdot \tau_2} \left(1+\frac{3}{x}+\frac{3}{x^2}\right) \braket{S_{12}}
+\end{equation}
+
+Where $x=m_\pi r$.
+
+We thus get a relative strength of the tensor force to the spin spin force as a function of x as:\\
+
+\begin{equation}
+\frac{V_{S_{12}}}{V_{\sigma \cdot \sigma}}=\frac{\left(1+\frac{3}{x}+\frac{3}{x^2}\right) \braket{S_{12}}}{\braket{\sigma_1 \cdot \sigma_2}}\end{equation}
+
+From the information in the table we see this becomes\\
+
+\begin{equation}
+\frac{V_{S_{12}}}{V_{\sigma \cdot \sigma}}=-\frac{\left(1+\frac{3}{x}+\frac{3}{x^2}\right)\frac{-16}{5}}{1}\end{equation}
+
+I plot this below:\\
+\begin{figure}[hbt!]
+\includegraphics[width=\linewidth]{ratio}
+\caption{Comparison of terms}
+\end{figure}
+
+We note that the spin spin force and tensor force are of the same sign, and that no matter what the value of x the tensor force is larger than the spin spin sforce. We also see that as the pion approaches masslessness the tensor force becomes infinitely larger, while the spin spin force remains unchanged.
 
 \end{document}

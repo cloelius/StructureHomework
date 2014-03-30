@@ -26,10 +26,8 @@
       <file leaf-file-name="HartreeFock.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/HartreeFock.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3145">
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
-              </folding>
+            <state line="1" column="0" selection-start="30" selection-end="30" vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="3400">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -349,10 +347,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/HartreeFock.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3145">
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
+        <state line="1" column="0" selection-start="30" selection-end="30" vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="3400">
+          <folding />
         </state>
       </provider>
     </entry>

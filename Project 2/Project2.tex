@@ -1,0 +1,191 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\usepackage{braket}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Projeect 2}
+\author{Charles Loelius}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Hamiltonian for Pair Conservation}
+
+In this problem we consider a space of equally spaced single particle levels with a spin degeneracy(up and down spin). We can then consider a pair conserving Hamiltonian with a single particle part and a pairing term. We represent these as\\
+
+\begin{equation}
+H=H_0+V
+\end{equation}
+
+Where\\
+
+\begin{equation}
+H_0=\chi \sum_{p\sigma} \left(p-1\right)a_{p\sigma}^\dagger a_{p\sigma}
+\end{equation}  
+
+\begin{equation}
+\braket{q_+q_-|V|s_+s_-} =-g \rightarrow V=-g\sum_{pq} a_{+p}^\dagger a_{p-}^\dagger a_{q+}a_{q-}
+\end{equation}
+
+Finally we define a pair creation and annhilation operator as\\
+\begin{equation}\hat{P_p}=a_{p+} a_{p-}\end{equation}
+\begin{equation}\hat{P_p}^\dagger=a_{p+}^\dagger a_{p-}^\dagger\end{equation}
+
+From this it follows that\\
+
+Now let us consider each of the commutation relations between the single particle and creation annhilation operators.\\
+
+\begin{equation}
+\left[P_p, P_q\right]=0
+\end{equation}
+\begin{equation}
+\left[P_p,P_q^\dagger\right]=\delta_{p,q}
+\end{equation}
+\begin{equation}
+\left[P_p,a_{q\sigma}\right]=0
+\end{equation}
+\begin{equation}
+\left[P_p^\dagger,a_{q\sigma}\right]=-\delta_{p,q}a_{p-\sigma}^\dagger
+\end{equation}
+\begin{equation}
+\left[P_p,a_{q\sigma}^\dagger \right]=\delta_{p,q}a_{p -\sigma}\end{equation}
+\begin{equation}
+\left[P_p^\dagger,a_{q \sigma}^\dagger \right]=0\end{equation}
+\begin{equation}
+\left[P_q^\dagger,P_p^\dagger\right]=0\end{equation}
+We note that we can write V as \\
+\begin{equation}
+V=-g\sum_{pq}P_q^\dagger P_p \end{equation}
+
+
+
+\subsection{$H_0,V$ commute with$S_z, S^2$}
+\subsubsection{$H_0$ commutes with $S_z$}
+\begin{equation}
+\left[H_0,S_z\right]=\epsilon \sum_{p' \sigma' p\sigma} \left(p-1\right) \sigma' \left[a_{p\sigma}^\dagger a_{p\sigma},a_{p'\sigma'}^\dagger a_{p'\sigma'}\right]=A\left(\delta_{p,p'}\delta_{\sigma,\sigma'}-\delta_{p,p'}\delta_{\sigma,\sigma'}\right)=0\end{equation}
+\subsubsection{$V$ commutes with $S_z$}
+\begin{equation}
+\left[V,S_z\right]=A\sum_{p,q,p',\sigma}\left[P_p^\dagger P_q,a_{p'\sigma}^\dagger a_{p\sigma} \right]=
+\end{equation}\begin{equation}A\sum_{p,q,p',\sigma}\left(P_{p}^\dagger\left[P_{p},a_{p'\sigma}^\dagger \right]a_{p'\sigma}+P_p^\dagger a_{p'\sigma}^\dagger \left[P_p,a_{p'\sigma}\right]+\left[P_p^\dagger a_{p'\sigma}^\dagger \right]P_p,a_{p'\sigma}+a_{p'\sigma}^\dagger \left[P_p^\dagger,a_{p'\sigma}\right]P_p\right)
+\end{equation}
+
+\begin{equation}
+= A\sum_{p,q,p'\sigma} \left(\delta_{p,p'}P_p^\dagger a_{p'-\sigma}a_{p'\sigma}-\delta_{p,p'}a_{p',\sigma}^\dagger a^\dagger_{p,-\sigma}P_p\right)=A\sum_{p\sigma} \left(P_p^\dagger P_p-P_p^\dagger P_p\right)=0\end{equation}
+
+
+\subsubsection{$H_0$ commutes with $S^2$}
+
+We note that \\
+\begin{equation}
+S^2=S_z^2+\frac{1}{2}\left(S_+S_- +S_-S_+ \right)
+\end{equation}
+
+Knowing from above that $H_0$ commutes with $S_z$ it thereby follows that  we must only prove\\
+
+\begin{equation}
+\left[H_0,\left(S_+S_- +S_-S_+ \right)\right]=0
+\end{equation}
+
+We note for any operator $O$ \\
+
+\begin{equation}
+\left[O,\left(S_+S_- +S_-S_+ \right)\right] =\left[O,S_+\right]S_-+\left[O,S_-\right]S_+ + S_+\left[O,S_-\right]+S_-\left[O,S_+\right]
+\end{equation}
+
+
+Now we then note that this can be written as \\
+
+\begin{equation}
+\left[
+
+\subsection{Hamiltonian Commutes with $P_p^+ P_p^-$}
+
+In order to show it keeps pairs together we must show that it conserves the product of the pair creation and annhilation operators. 
+
+
+Now we can then take advantage of some basic commutator algebra to solve that\\
+
+\begin{equation}
+\left[P_p^\dagger P_p,P_q^\dagger P_r \right]=P_p^\dagger \left[P_p,P_q^\dagger\right]P_r+P_q^\dagger P_q^\dagger \left[P_p,P_r \right] +\left[P_p^\dagger,P_q^\dagger\right]P_r P_p+P_q^\dagger \left[P_p^\dagger, P_r \right]P_p\end{equation}\begin{equation}=\delta_{p,q}P_p^\dagger P_r -\delta_{p,r}P_q^\dagger P_p=P_q^\dagger P_r - P_q^\dagger P_r=0 \end{equation}
+
+\begin{equation}
+\left[P_p^\dagger P_p, a_{r \sigma}^\dagger a_{r\sigma}\right]=P_p^\dagger \left[P_p,a_{r\sigma}^\dagger\right]a_{r\sigma}+
+P_p^\dagger a_{r\sigma}^\dagger \left[P_p,a_{r \sigma}\right] + \left[P_p^\dagger, a_{r\sigma}^\dagger \right] a_{r \sigma} P_p + a_{r \sigma}^\dagger \left[P_p^\dagger, a_{r \sigma} \right] P_p \end{equation}
+
+
+
+
+\begin{equation}
+\left[P_p^\dagger P_p, a_{r \sigma}^\dagger a_{r\sigma}\right]=P_p^\dagger\delta_{p,r} a_{p -\sigma} a_{r\sigma}-\delta_{p,r}a_{r\sigma}^\dagger a_{p-\sigma}^\dagger P_p=P_p^\dagger P_p-P_p^\dagger P_p =0\end{equation}
+%
+%\begin{equation}
+%\left[P_p^\dagger P_p ,V\right]=-g \sum_{ab} P_a^\dagger P_b P_p^\dagger P_p +gP_p^\dagger P_p\sum_{ab}P_a^\dagger P_b
+%\end{equation}
+%
+%Now we note for all cases where $a,b \neq b$ it follows that the pair operators commute with the terms and so those terms cancel. Furthermore in the case where $a=b=p$ there is a trivial commutation. We are thus left with only the term where $a=p, b\neq p$ or $b=p, a \neq p$.\\
+%
+%In the first of the cases we thus have, using standard commutator algebra and remembering that $p\neq b$.\\
+%
+%\begin{equation}
+%\left[P_p^\dagger P_p, P_p^\dagger P_b \right]= P_p^\dagger \left[P_p,P_p^\dagger\right]P_b +P_p^\dagger P_p^\dagger \left[P_p,P_b\right]+\left[P_p^\dagger,P_p^\dagger\right]P_p P_b+P_p^\dagger \left[P_p^\dagger,P_b\right] P_p=P_p^\dagger \left[P_p,P_p^\dagger\right]P_b\end{equation}
+%
+%And doing the same for the second we have\\
+%\begin{equation}
+%\left[P_p^\dagger P_p, P_a^\dagger P_p \right]= P_p^\dagger \left[P_p,P_a^\dagger\right]P_p +P_p^\dagger P_a^\dagger \left[P_p,P_p\right]+\left[P_a^\dagger,P_p^\dagger\right]P_p P_p+P_a^\dagger \left[P_p^\dagger,P_p\right] P_p=P_a^\dagger \left[P_p^\dagger,P_p\right]P_p=-P_a^\dagger \left[P_p,P_p^\dagger\right]P_p\end{equation}
+%
+%Finally we note that the commutator $\left[P_p^\dagger,P_p \right]$ is just 1 looking at the commutator of the individual creation and annhilation operators. As we are summing over all a and b that each of these variables is a dummy variable and so all of these commutators summed will go to zero. As such the Hamiltonian commutes with the pair operator. 
+
+\end{document}
