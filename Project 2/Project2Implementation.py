@@ -64,7 +64,6 @@ def GetEigenEns(mat):
     "Simplification for plotting"
     return np.linalg.eig(mat)[0]
 
-
 def MakePlot(gs,h1,title=""):
     "Create a plot with energy eigenstates vs. g given a Hilbert space and range of g values"
     plots=[]
