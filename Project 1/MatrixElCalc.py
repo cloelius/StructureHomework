@@ -180,6 +180,6 @@ class State:
     
 def GetMatrixElement(Ham,bra,ket):
     "This function returns the matrix element of a Hamiltonian between two state vectors"
-        return bra.dot(Ham.Act(ket))
+    return bra.dot(Ham.Act(ket))
 
 

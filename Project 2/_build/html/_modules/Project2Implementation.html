@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Project2Implementation &mdash; StructureProject2 1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="StructureProject2 1 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">StructureProject2 1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for Project2Implementation</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">ShellModel</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<div class="viewcode-block" id="MakeStates"><a class="viewcode-back" href="../Project2Implementation.html#Project2Implementation.MakeStates">[docs]</a><span class="k">def</span> <span class="nf">MakeStates</span><span class="p">(</span><span class="n">pstate</span><span class="p">,</span><span class="n">sstate</span><span class="p">,</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">&quot;This function generates states given some possible p values, sigma values, and the maximum number of p values&quot;</span>
+    <span class="n">states</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">pstate</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">p</span><span class="p">],</span><span class="n">sstate</span><span class="p">):</span>
+        <span class="n">states</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">State</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">states</span>
+</div>
+<div class="viewcode-block" id="MakeHilbertSpace"><a class="viewcode-back" href="../Project2Implementation.html#Project2Implementation.MakeHilbertSpace">[docs]</a><span class="k">def</span> <span class="nf">MakeHilbertSpace</span><span class="p">(</span><span class="n">States</span><span class="p">,</span><span class="n">Numparts</span><span class="p">,</span><span class="n">Pairing</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">MState</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="s">&quot;Incorporates a number of Hilbet Space rules to return a space where the total spin projection is M, the number of particles is Numparts, and can enforce pairing. Takes States as argument to form hilbert space&quot;</span>
+    <span class="n">Hilb</span><span class="o">=</span><span class="n">HilbertSpace</span><span class="p">(</span><span class="n">States</span><span class="p">)</span>
+    <span class="n">Hilb</span><span class="o">=</span><span class="n">MakeNumParticles</span><span class="p">(</span><span class="n">Hilb</span><span class="p">,</span><span class="n">Numparts</span><span class="p">)</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
+        <span class="n">Hilb</span><span class="o">=</span><span class="n">MakeHSpaceM</span><span class="p">(</span><span class="n">Hilb</span><span class="p">,</span><span class="n">MState</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">Pairing</span><span class="p">:</span>
+        <span class="n">Hilb</span><span class="o">=</span><span class="n">PairingH</span><span class="p">(</span><span class="n">Hilb</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Hilb</span></div>
+<div class="viewcode-block" id="MakeH0Term"><a class="viewcode-back" href="../Project2Implementation.html#Project2Implementation.MakeH0Term">[docs]</a><span class="k">def</span> <span class="nf">MakeH0Term</span><span class="p">(</span><span class="n">HSpace</span><span class="p">):</span>
+    <span class="s">&quot;Make H0 Term with proper constant values as defined in project 2&quot;</span>
+    <span class="n">terms</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">HSpace</span><span class="o">.</span><span class="n">States</span><span class="p">:</span>
+        <span class="n">ops</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">ops</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">anop</span>
+        <span class="n">ops</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">creop</span>
+        <span class="n">terms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">HamilTerm</span><span class="p">(</span><span class="n">ops</span><span class="p">,</span><span class="n">HSpace</span><span class="p">,</span><span class="n">s</span><span class="o">.</span><span class="n">GetVal</span><span class="p">(</span><span class="s">&#39;p&#39;</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">terms</span></div>
+<div class="viewcode-block" id="MakeDegenH0Term"><a class="viewcode-back" href="../Project2Implementation.html#Project2Implementation.MakeDegenH0Term">[docs]</a><span class="k">def</span> <span class="nf">MakeDegenH0Term</span><span class="p">(</span><span class="n">HSpace</span><span class="p">,</span><span class="n">const</span><span class="p">):</span>
+    <span class="s">&quot;Makes an H0 Term that is degenerate at some value of energy=const&quot;</span>
+    <span class="n">terms</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">HSpace</span><span class="o">.</span><span class="n">States</span><span class="p">:</span>
+        <span class="n">ops</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">ops</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">anop</span>
+        <span class="n">ops</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">creop</span>
+        <span class="n">terms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">HamilTerm</span><span class="p">(</span><span class="n">ops</span><span class="p">,</span><span class="n">HSpace</span><span class="p">,</span><span class="n">const</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">terms</span>
+</div>
+<div class="viewcode-block" id="MakeH1Term"><a class="viewcode-back" href="../Project2Implementation.html#Project2Implementation.MakeH1Term">[docs]</a><span class="k">def</span> <span class="nf">MakeH1Term</span><span class="p">(</span><span class="n">HSpace</span><span class="p">,</span><span class="n">Constant</span><span class="p">):</span>
+    <span class="s">&quot;Makes the interaction term via J+/- operators with some constant&quot;</span>
+    <span class="n">ps</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">HSpace</span><span class="o">.</span><span class="n">States</span><span class="p">:</span>
+        <span class="n">ps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">GetVal</span><span class="p">(</span><span class="s">&#39;p&#39;</span><span class="p">))</span>
+    <span class="n">ps</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">ps</span><span class="p">))</span>
+    <span class="n">terms</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">p</span><span class="p">,</span><span class="n">q</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span><span class="n">ps</span><span class="p">):</span>
+        <span class="n">ops</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">HSpace</span><span class="o">.</span><span class="n">States</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">GetVal</span><span class="p">(</span><span class="s">&#39;p&#39;</span><span class="p">)</span><span class="o">==</span><span class="n">q</span> <span class="ow">and</span> <span class="n">state</span><span class="o">.</span><span class="n">GetVal</span><span class="p">(</span><span class="s">&#39;sigma&#39;</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+              <span class="n">ops</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">anop</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">GetVal</span><span class="p">(</span><span class="s">&#39;p&#39;</span><span class="p">)</span><span class="o">==</span><span class="n">q</span> <span class="ow">and</span> <span class="n">state</span><span class="o">.</span><span class="n">GetVal</span><span class="p">(</span><span class="s">&#39;sigma&#39;</span><span class="p">)</span><span class="o">==-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">ops</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">state</span><span class="o">.</span><span class="n">anop</span>
+            <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">GetVal</span><span class="p">(</span><span class="s">&#39;p&#39;</span><span class="p">)</span><span class="o">==</span><span class="n">p</span> <span class="ow">and</span> <span class="n">state</span><span class="o">.</span><span class="n">GetVal</span><span class="p">(</span><span class="s">&#39;sigma&#39;</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+              <span class="n">ops</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">creop</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">GetVal</span><span class="p">(</span><span class="s">&#39;p&#39;</span><span class="p">)</span><span class="o">==</span><span class="n">p</span> <span class="ow">and</span> <span class="n">state</span><span class="o">.</span><span class="n">GetVal</span><span class="p">(</span><span class="s">&#39;sigma&#39;</span><span class="p">)</span><span class="o">==-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">ops</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="n">state</span><span class="o">.</span><span class="n">creop</span>
+        <span class="n">terms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">HamilTerm</span><span class="p">(</span><span class="n">ops</span><span class="p">,</span><span class="n">HSpace</span><span class="p">,</span><span class="n">Constant</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">terms</span>
+</div>
+<div class="viewcode-block" id="MakeProblemHamil"><a class="viewcode-back" href="../Project2Implementation.html#Project2Implementation.MakeProblemHamil">[docs]</a><span class="k">def</span> <span class="nf">MakeProblemHamil</span><span class="p">(</span><span class="n">hilb</span><span class="p">,</span><span class="n">g</span><span class="p">):</span>
+    <span class="s">&quot;incorporates all above functions to make the full hamiltonian&quot;</span>
+    <span class="k">return</span> <span class="n">Hamiltonian</span><span class="p">(</span><span class="n">MakeH0Term</span><span class="p">(</span><span class="n">hilb</span><span class="p">)</span><span class="o">+</span><span class="n">MakeH1Term</span><span class="p">(</span><span class="n">hilb</span><span class="p">,</span><span class="o">-</span><span class="n">g</span><span class="p">))</span></div>
+<div class="viewcode-block" id="GetEigenEns"><a class="viewcode-back" href="../Project2Implementation.html#Project2Implementation.GetEigenEns">[docs]</a><span class="k">def</span> <span class="nf">GetEigenEns</span><span class="p">(</span><span class="n">mat</span><span class="p">):</span>
+    <span class="s">&quot;Simplification for plotting&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">mat</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+</div>
+<div class="viewcode-block" id="MakePlot"><a class="viewcode-back" href="../Project2Implementation.html#Project2Implementation.MakePlot">[docs]</a><span class="k">def</span> <span class="nf">MakePlot</span><span class="p">(</span><span class="n">gs</span><span class="p">,</span><span class="n">h1</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+    <span class="s">&quot;Create a plot with energy eigenstates vs. g given a Hilbert space and range of g values&quot;</span>
+    <span class="n">plots</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">gs</span><span class="p">:</span>
+        <span class="n">H</span><span class="o">=</span><span class="n">MakeProblemHamil</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span><span class="n">g</span><span class="p">)</span>
+        <span class="n">m1</span><span class="o">=</span><span class="n">MakeMatrix</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span><span class="n">H</span><span class="p">)</span>
+        <span class="n">en</span><span class="o">=</span><span class="n">GetEigenEns</span><span class="p">(</span><span class="n">m1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">en</span><span class="p">:</span>
+            <span class="n">plots</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">g</span><span class="p">,</span><span class="n">e</span><span class="p">])</span>
+    <span class="n">plots</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">plots</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">plots</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">plots</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;g value&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Energy Eigenstate&#39;</span><span class="p">)</span></div>
+<span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">pstates</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">numpstates</span><span class="o">=</span><span class="mi">8</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numpstates</span><span class="p">):</span>
+        <span class="n">pstates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QuantumNumber</span><span class="p">(</span><span class="s">&#39;p&#39;</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">sigmastates</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">sigmastates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QuantumNumber</span><span class="p">(</span><span class="s">&#39;sigma&#39;</span><span class="p">,</span><span class="n">i</span><span class="p">))</span>
+    
+    <span class="n">gs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">s1</span><span class="o">=</span><span class="n">MakeStates</span><span class="p">(</span><span class="n">pstates</span><span class="p">,</span><span class="n">sigmastates</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">h0</span><span class="o">=</span><span class="n">MakeHilbertSpace</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+    <span class="c">#s2=MakeStates(pstates,sigmastates,6)</span>
+    <span class="c">#h2=MakeHilbertSpace(s2,6)</span>
+    <span class="c">#s3=MakeStates(pstates,sigmastates,8)</span>
+    <span class="c">#h3=MakeHilbertSpace(s3,6)</span>
+    <span class="n">MakePlot</span><span class="p">(</span><span class="n">gs</span><span class="p">,</span><span class="n">h0</span><span class="p">,</span><span class="s">&#39;p=4 4 particles&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">StructureProject2 1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Charles Loelius.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ShellModel &mdash; StructureProject2 1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="StructureProject2 1 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">StructureProject2 1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for ShellModel</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span> <span class="k">as</span> <span class="n">cwr</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+
+
+<div class="viewcode-block" id="Hamiltonian"><a class="viewcode-back" href="../ShellModel.html#ShellModel.Hamiltonian">[docs]</a><span class="k">class</span> <span class="nc">Hamiltonian</span><span class="p">:</span>
+    <span class="s">&quot;This class serves to unify all of the terms and provide an easy way to calculate matrix elements. The class should mostly be used to call the braket function.&quot;</span>
+    <span class="n">Terms</span><span class="o">=</span><span class="p">[]</span>
+<div class="viewcode-block" id="Hamiltonian.braket"><a class="viewcode-back" href="../ShellModel.html#ShellModel.Hamiltonian.braket">[docs]</a>    <span class="k">def</span> <span class="nf">braket</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">bra</span><span class="p">,</span><span class="n">ket</span><span class="p">):</span>
+        <span class="s">&quot;Returns the matrix element for the Hamiltonian with bra/ket&quot;</span>
+        <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">Terms</span><span class="p">:</span>
+           <span class="n">i</span><span class="o">+=</span><span class="n">term</span><span class="o">.</span><span class="n">braket</span><span class="p">(</span><span class="n">bra</span><span class="p">,</span><span class="n">ket</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">i</span></div>
+<div class="viewcode-block" id="Hamiltonian.Act"><a class="viewcode-back" href="../ShellModel.html#ShellModel.Hamiltonian.Act">[docs]</a>    <span class="k">def</span> <span class="nf">Act</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">state</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="ow">is</span> <span class="n">statesum</span><span class="p">:</span>
+            <span class="n">ans</span><span class="o">=</span><span class="p">[]</span>
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">statesum</span><span class="o">.</span><span class="n">states</span><span class="p">:</span>
+                <span class="n">ans1</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Act</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ans1</span><span class="p">:</span>
+                    <span class="n">ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">statesum</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="ow">is</span> <span class="n">SlaterDeterm</span><span class="p">:</span>
+            <span class="n">ans</span><span class="o">=</span><span class="p">[]</span>
+            <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">Terms</span><span class="p">:</span>
+                <span class="n">ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">term</span><span class="o">.</span><span class="n">Act</span><span class="p">(</span><span class="n">state</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">statesum</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">Terms</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Terms</span><span class="o">=</span><span class="n">Terms</span></div>
+<div class="viewcode-block" id="statesum"><a class="viewcode-back" href="../ShellModel.html#ShellModel.statesum">[docs]</a><span class="k">class</span> <span class="nc">statesum</span><span class="p">:</span>
+    <span class="s">&quot;This class should only be called within the Act functions in the Hamiltonian classes&quot;</span>
+    <span class="n">State</span><span class="o">=</span><span class="p">[]</span>
+<div class="viewcode-block" id="statesum.dot"><a class="viewcode-back" href="../ShellModel.html#ShellModel.statesum.dot">[docs]</a>    <span class="k">def</span> <span class="nf">dot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">state</span><span class="p">):</span>
+        <span class="n">ans</span><span class="o">=</span><span class="p">[]</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">:</span>
+            <span class="n">ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">state</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+        <span class="n">total</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ans</span><span class="p">:</span>
+            <span class="n">total</span><span class="o">+=</span><span class="n">i</span>
+        <span class="k">return</span> <span class="n">total</span></div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">states</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">states</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">SlaterDeterm</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s">&#39;statesum defined incorrectly&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">State</span><span class="o">=</span><span class="n">states</span></div>
+<div class="viewcode-block" id="HilbertSpace"><a class="viewcode-back" href="../ShellModel.html#ShellModel.HilbertSpace">[docs]</a><span class="k">class</span> <span class="nc">HilbertSpace</span><span class="p">:</span>
+    <span class="s">&quot;This class serves to order the states and form slater determinants&quot;</span>
+    <span class="n">States</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">Slaters</span><span class="o">=</span><span class="p">[]</span>
+<div class="viewcode-block" id="HilbertSpace.Copy"><a class="viewcode-back" href="../ShellModel.html#ShellModel.HilbertSpace.Copy">[docs]</a>    <span class="k">def</span> <span class="nf">Copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">statecopy</span><span class="o">=</span><span class="p">[]</span>
+        <span class="n">Slaterscopy</span><span class="o">=</span><span class="p">[]</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">States</span><span class="p">:</span>
+            <span class="n">statecopy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">Slaters</span><span class="p">:</span>
+            <span class="n">Slaterscopy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="n">hcopy</span><span class="o">=</span><span class="n">HilbertSpace</span><span class="p">([])</span>
+        <span class="n">hcopy</span><span class="o">.</span><span class="n">States</span><span class="o">=</span><span class="n">statecopy</span>
+        <span class="n">hcopy</span><span class="o">.</span><span class="n">Slaters</span><span class="o">=</span><span class="n">Slaterscopy</span>
+        <span class="k">return</span> <span class="n">hcopy</span></div>
+<div class="viewcode-block" id="HilbertSpace.GetStateIndex"><a class="viewcode-back" href="../ShellModel.html#ShellModel.HilbertSpace.GetStateIndex">[docs]</a>    <span class="k">def</span> <span class="nf">GetStateIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">state</span><span class="p">):</span>
+        <span class="s">&quot;Returns index of state in Hilbert Space&quot;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">st</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">States</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">st</span><span class="o">.</span><span class="n">Compare</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">i</span>
+        <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s">&#39;State Not in Hilbert Space&#39;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="HilbertSpace.Sort"><a class="viewcode-back" href="../ShellModel.html#ShellModel.HilbertSpace.Sort">[docs]</a>    <span class="k">def</span> <span class="nf">Sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">slater</span><span class="p">):</span>
+        <span class="s">&quot;Returns the sorted state vector in the proper order&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">slater</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">SlaterDeterm</span><span class="p">:</span>
+          <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s">&#39;Wrong Input To Get Phase&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">slater</span><span class="o">.</span><span class="n">State</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">slater</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">indicies</span><span class="o">=</span><span class="p">[]</span>
+        <span class="k">if</span> <span class="n">slater</span><span class="o">.</span><span class="n">AreStatesRepeated</span><span class="p">():</span>
+            <span class="n">sv</span><span class="o">=</span><span class="n">slater</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">sv</span><span class="o">.</span><span class="n">State</span><span class="o">=</span><span class="mi">0</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">sv</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">slater</span><span class="o">.</span><span class="n">State</span><span class="p">:</span>
+            <span class="n">indicies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">GetStateIndex</span><span class="p">(</span><span class="n">state</span><span class="p">))</span>
+        <span class="n">sortslate</span><span class="o">=</span><span class="nb">sorted</span><span class="p">(</span><span class="n">indicies</span><span class="p">)</span>
+        <span class="n">sortedslate</span><span class="o">=</span><span class="n">slater</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sortslate</span><span class="p">):</span>
+            <span class="n">sortedslate</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">States</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">perms</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">while</span> <span class="n">indicies</span><span class="o">!=</span><span class="n">sortslate</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indicies</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">indicies</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">!=</span><span class="n">sortslate</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indicies</span><span class="p">)):</span>
+                        <span class="k">if</span> <span class="n">indicies</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">==</span><span class="n">sortslate</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                            <span class="n">indicies</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">indicies</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                            <span class="n">indicies</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">sortslate</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                            <span class="n">perms</span><span class="o">=</span><span class="n">perms</span><span class="o">+</span><span class="mi">1</span>
+                            <span class="k">break</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">SlaterDeterm</span><span class="p">(</span><span class="n">sortedslate</span><span class="p">),</span><span class="n">perms</span><span class="p">]</span>                        </div>
+<div class="viewcode-block" id="HilbertSpace.GenerateSlaters"><a class="viewcode-back" href="../ShellModel.html#ShellModel.HilbertSpace.GenerateSlaters">[docs]</a>    <span class="k">def</span> <span class="nf">GenerateSlaters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">&quot;Creates Slaters from States&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">States</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">comb</span> <span class="ow">in</span> <span class="n">cwr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">States</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+                <span class="n">slate</span><span class="o">=</span><span class="n">SlaterDeterm</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">comb</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Slaters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Sort</span><span class="p">(</span><span class="n">slate</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span></div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">States</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">States</span><span class="o">=</span><span class="n">States</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Slaters</span><span class="o">=</span><span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">GenerateSlaters</span><span class="p">()</span>
+        
+        
+    </div>
+<div class="viewcode-block" id="HamilTerm"><a class="viewcode-back" href="../ShellModel.html#ShellModel.HamilTerm">[docs]</a><span class="k">class</span> <span class="nc">HamilTerm</span><span class="p">:</span>
+    <span class="s">&quot;This class produces the individual terms in a hamiltonian from operators, and applies them&quot;</span>
+    <span class="n">constant</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">Operators</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">hilb</span><span class="o">=</span><span class="bp">None</span>
+<div class="viewcode-block" id="HamilTerm.Act"><a class="viewcode-back" href="../ShellModel.html#ShellModel.HamilTerm.Act">[docs]</a>    <span class="k">def</span> <span class="nf">Act</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">statevec</span><span class="p">):</span>
+        <span class="s">&quot;For internal use primarily, calculates state vector returned by hamiltonian&quot;</span>
+        <span class="n">phase</span><span class="o">=</span><span class="mi">1</span>
+        <span class="n">sv</span><span class="o">=</span><span class="n">statevec</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Operators</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">sv</span>
+        <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">Operators</span><span class="p">:</span>
+            <span class="n">phase</span><span class="o">*=</span><span class="n">op</span><span class="o">.</span><span class="n">GetPhase</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hilb</span><span class="p">,</span><span class="n">sv</span><span class="p">)</span>
+            <span class="n">sv</span><span class="o">=</span><span class="n">op</span><span class="o">.</span><span class="n">Act</span><span class="p">(</span><span class="n">sv</span><span class="p">)</span>
+        <span class="n">sv1</span><span class="p">,</span><span class="n">phase1</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hilb</span><span class="o">.</span><span class="n">Sort</span><span class="p">(</span><span class="n">sv</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">sv1</span><span class="p">,</span><span class="n">phase</span><span class="p">]</span></div>
+<div class="viewcode-block" id="HamilTerm.braket"><a class="viewcode-back" href="../ShellModel.html#ShellModel.HamilTerm.braket">[docs]</a>    <span class="k">def</span> <span class="nf">braket</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">bra</span><span class="p">,</span><span class="n">ket</span><span class="p">):</span>
+        <span class="s">&quot;Returns matrix element for single term&quot;</span>
+        <span class="n">sv</span><span class="p">,</span><span class="n">phase</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Act</span><span class="p">(</span><span class="n">ket</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">constant</span><span class="o">*</span><span class="n">bra</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">sv</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">phase</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">ops</span><span class="p">,</span><span class="n">hilb</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">constant</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Operators</span><span class="o">=</span><span class="n">ops</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hilb</span><span class="o">=</span><span class="n">hilb</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">constant</span><span class="o">=</span><span class="n">constant</span></div>
+<div class="viewcode-block" id="SlaterDeterm"><a class="viewcode-back" href="../ShellModel.html#ShellModel.SlaterDeterm">[docs]</a><span class="k">class</span> <span class="nc">SlaterDeterm</span><span class="p">:</span>
+    <span class="s">&quot;These are the slater determinants, ordered, which keep track of which state&#39;s are in the state&quot;</span>
+    <span class="n">State</span><span class="o">=</span><span class="p">[]</span>    
+<div class="viewcode-block" id="SlaterDeterm.copy"><a class="viewcode-back" href="../ShellModel.html#ShellModel.SlaterDeterm.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">copystate</span><span class="o">=</span><span class="p">[]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">State</span><span class="p">:</span>
+                <span class="n">copystate</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+        <span class="k">except</span><span class="p">:</span>
+                <span class="n">copystate</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">return</span> <span class="n">SlaterDeterm</span><span class="p">(</span><span class="n">copystate</span><span class="p">)</span></div>
+<div class="viewcode-block" id="SlaterDeterm.AreStatesRepeated"><a class="viewcode-back" href="../ShellModel.html#ShellModel.SlaterDeterm.AreStatesRepeated">[docs]</a>    <span class="k">def</span> <span class="nf">AreStatesRepeated</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">&quot;Used in initialization&quot;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">State</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">state1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">State</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span><span class="o">!=</span><span class="n">j</span> <span class="ow">and</span> <span class="n">state1</span><span class="o">.</span><span class="n">Compare</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">State</span><span class="o">=</span><span class="mi">0</span>
+                    <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">False</span></div>
+<div class="viewcode-block" id="SlaterDeterm.Compare"><a class="viewcode-back" href="../ShellModel.html#ShellModel.SlaterDeterm.Compare">[docs]</a>    <span class="k">def</span> <span class="nf">Compare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">slat</span><span class="p">):</span>
+        <span class="s">&quot;Used because many copies are used so simple == relations will not work&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">slat</span><span class="p">)</span> <span class="ow">is</span> <span class="n">statesum</span><span class="p">:</span>
+            <span class="n">ans</span><span class="o">=</span><span class="p">[]</span>
+            <span class="k">for</span> <span class="n">st</span> <span class="ow">in</span> <span class="n">statesum</span><span class="o">.</span><span class="n">State</span><span class="p">:</span>
+                <span class="n">ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Compare</span><span class="p">(</span><span class="n">st</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">ans</span>
+        
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">slat</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">SlaterDeterm</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s">&#39;Not Slater Determinant in Comparison&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">slat</span><span class="o">.</span><span class="n">State</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">State</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">True</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">State</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">slat</span><span class="o">.</span><span class="n">State</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">State</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">State</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">State</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">Compare</span><span class="p">(</span><span class="n">slat</span><span class="o">.</span><span class="n">State</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
+                <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">True</span></div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">states</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">states</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">State</span><span class="o">=</span><span class="mi">0</span>
+            <span class="k">return</span> <span class="bp">None</span>
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">states</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">State</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s">&#39;Not a state in Slater Determinent&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">State</span><span class="o">=</span><span class="n">states</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">AreStatesRepeated</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">State</span><span class="o">=</span><span class="mi">0</span>
+<div class="viewcode-block" id="SlaterDeterm.dot"><a class="viewcode-back" href="../ShellModel.html#ShellModel.SlaterDeterm.dot">[docs]</a>    <span class="k">def</span> <span class="nf">dot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">slat</span><span class="p">):</span>
+        <span class="s">&quot;Returns 0 if either this Slater Determinant or the one being dotted with are null or they are different from each other. Returns 1 otherwise. If statesum is applied, applies this as a sum.&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">slat</span><span class="p">)</span><span class="ow">is</span> <span class="n">statesum</span><span class="p">:</span>
+            <span class="n">ans</span><span class="o">=</span><span class="p">[]</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">slat</span><span class="o">.</span><span class="n">State</span><span class="p">:</span>
+                <span class="n">ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+            <span class="n">total</span><span class="o">=</span><span class="mi">0</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ans</span><span class="p">:</span>
+                <span class="n">total</span><span class="o">+=</span><span class="n">i</span>
+            <span class="k">return</span> <span class="n">total</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">State</span><span class="o">==</span><span class="mi">0</span> <span class="ow">or</span> <span class="n">slat</span><span class="o">.</span><span class="n">State</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Compare</span><span class="p">(</span><span class="n">slat</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    
+        </div></div>
+<div class="viewcode-block" id="QuantumNumber"><a class="viewcode-back" href="../ShellModel.html#ShellModel.QuantumNumber">[docs]</a><span class="k">class</span> <span class="nc">QuantumNumber</span><span class="p">:</span>
+    <span class="s">&quot;Basic class to construct states&quot;</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">&quot;&quot;</span>
+    <span class="n">value</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">=</span><span class="n">value</span>
+<div class="viewcode-block" id="QuantumNumber.copy"><a class="viewcode-back" href="../ShellModel.html#ShellModel.QuantumNumber.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">QuantumNumber</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div>
+<div class="viewcode-block" id="QuantumNumber.compare"><a class="viewcode-back" href="../ShellModel.html#ShellModel.QuantumNumber.compare">[docs]</a>    <span class="k">def</span> <span class="nf">compare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">qn</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">qn</span><span class="o">.</span><span class="n">name</span><span class="o">==</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">qn</span><span class="o">.</span><span class="n">value</span><span class="o">==</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">False</span></div></div>
+<div class="viewcode-block" id="Operator"><a class="viewcode-back" href="../ShellModel.html#ShellModel.Operator">[docs]</a><span class="k">class</span> <span class="nc">Operator</span><span class="p">:</span>
+    <span class="s">&quot;This is associated with some state, can be creation or annhilation, and acts to change state vectors as creation/annhilation operators do&quot;</span>
+    <span class="n">state</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">Creation</span><span class="o">=</span><span class="bp">True</span>
+<div class="viewcode-block" id="Operator.GetPhase"><a class="viewcode-back" href="../ShellModel.html#ShellModel.Operator.GetPhase">[docs]</a>    <span class="k">def</span> <span class="nf">GetPhase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">Hilb</span><span class="p">,</span><span class="n">Slate</span><span class="p">):</span>
+        <span class="s">&quot;Gets Phase operator would return if it acts on the state&quot;</span>
+        <span class="n">index</span><span class="o">=-</span><span class="mi">1</span>
+        <span class="n">nbetween</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">st</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Hilb</span><span class="o">.</span><span class="n">States</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">Compare</span><span class="p">(</span><span class="n">st</span><span class="p">):</span>
+                <span class="n">index</span><span class="o">=</span><span class="n">i</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="n">Slate</span><span class="o">.</span><span class="n">State</span><span class="o">==</span><span class="p">[]</span> <span class="ow">or</span> <span class="n">Slate</span><span class="o">.</span><span class="n">State</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">index</span><span class="o">==-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s">&#39;State not in HilbertSpace&#39;</span><span class="p">)</span>    
+        <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">Slate</span><span class="o">.</span><span class="n">State</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">Hilb</span><span class="o">.</span><span class="n">GetStateIndex</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">&lt;</span><span class="n">index</span><span class="p">:</span>
+                <span class="n">nbetween</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">nbetween</span></div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">state</span><span class="p">,</span><span class="n">Creation</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">=</span><span class="n">state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Creation</span><span class="o">=</span><span class="n">Creation</span>
+<div class="viewcode-block" id="Operator.copy"><a class="viewcode-back" href="../ShellModel.html#ShellModel.Operator.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Operator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span><span class="bp">self</span><span class="o">.</span><span class="n">Creation</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Operator.Act"><a class="viewcode-back" href="../ShellModel.html#ShellModel.Operator.Act">[docs]</a>    <span class="k">def</span> <span class="nf">Act</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">statevector</span><span class="p">):</span>
+        <span class="s">&quot;Returns null state vector if creation operator and its state is in the slater determinant or if annhilation and the state is not, or if the statevector is the null vector(represented by setting the state to 0). Returns state vector plus or minus the state otherwise(not properly ordered)&quot;</span>
+        <span class="k">if</span> <span class="n">statevector</span><span class="o">.</span><span class="n">State</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">statevector</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Creation</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">statevector</span><span class="o">.</span><span class="n">State</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">Compare</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+                    <span class="n">sv</span><span class="o">=</span><span class="n">statevector</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                    <span class="n">sv</span><span class="o">.</span><span class="n">State</span><span class="o">=</span><span class="mi">0</span>
+                    <span class="k">return</span> <span class="n">sv</span>
+            <span class="n">sv</span><span class="o">=</span><span class="n">statevector</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">sv</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">sv</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">statevector</span><span class="o">.</span><span class="n">State</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">Compare</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+                    <span class="n">sv</span><span class="o">=</span><span class="n">statevector</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sv</span><span class="o">.</span><span class="n">State</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">Compare</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+                            <span class="n">sv</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+                            <span class="k">return</span> <span class="n">sv</span>
+            <span class="n">sv</span><span class="o">=</span><span class="n">statevector</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">sv</span><span class="o">.</span><span class="n">State</span><span class="o">=</span><span class="mi">0</span>
+            <span class="k">return</span> <span class="n">sv</span>
+            </div></div>
+<div class="viewcode-block" id="State"><a class="viewcode-back" href="../ShellModel.html#ShellModel.State">[docs]</a><span class="k">class</span> <span class="nc">State</span><span class="p">:</span>
+    <span class="s">&quot;Class keeps quantum numbers to define state and generates creation and annhilation operators&quot;</span>
+    <span class="n">quantumnums</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">anop</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">creop</span><span class="o">=</span><span class="mi">0</span>
+<div class="viewcode-block" id="State.copy"><a class="viewcode-back" href="../ShellModel.html#ShellModel.State.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">qcopy</span><span class="o">=</span><span class="p">[]</span>
+        <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantumnums</span><span class="p">:</span>
+            <span class="n">qcopy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">State</span><span class="p">(</span><span class="n">qcopy</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">quantumnums</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quantumnums</span><span class="o">=</span><span class="n">quantumnums</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">creop</span><span class="o">=</span><span class="n">Operator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">anop</span><span class="o">=</span><span class="n">Operator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="bp">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">quantumnums</span><span class="o">==</span><span class="p">[]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">quantumnums</span><span class="o">=</span><span class="mi">0</span>
+<div class="viewcode-block" id="State.Compare"><a class="viewcode-back" href="../ShellModel.html#ShellModel.State.Compare">[docs]</a>    <span class="k">def</span> <span class="nf">Compare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">state</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quantumnums</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">quantumnums</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quantumnums</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantumnums</span><span class="p">[</span><span class="n">q</span><span class="p">]</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">quantumnums</span><span class="p">[</span><span class="n">q</span><span class="p">]):</span>
+                <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">True</span>
+            
+        <span class="k">return</span> <span class="bp">True</span> </div>
+<div class="viewcode-block" id="State.GetVal"><a class="viewcode-back" href="../ShellModel.html#ShellModel.State.GetVal">[docs]</a>    <span class="k">def</span> <span class="nf">GetVal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
+        <span class="s">&quot;Returns value of quantum number for this state&quot;</span>
+        <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantumnums</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">q</span><span class="o">.</span><span class="n">name</span><span class="o">==</span><span class="n">name</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">q</span><span class="o">.</span><span class="n">value</span>
+
+    
+    </div></div>
+<div class="viewcode-block" id="MakeHSpaceM"><a class="viewcode-back" href="../ShellModel.html#ShellModel.MakeHSpaceM">[docs]</a><span class="k">def</span> <span class="nf">MakeHSpaceM</span><span class="p">(</span><span class="n">hilbert</span><span class="p">,</span><span class="n">M</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="s">&quot;Returns a hilbert space such that the total spin is M in each state&quot;</span>
+    <span class="n">slates</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">hcop</span><span class="o">=</span><span class="n">hilbert</span><span class="o">.</span><span class="n">Copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">hcop</span><span class="o">.</span><span class="n">Slaters</span><span class="p">:</span>
+        <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">State</span><span class="p">:</span>
+            <span class="n">i</span><span class="o">+=</span><span class="n">s</span><span class="o">.</span><span class="n">GetVal</span><span class="p">(</span><span class="s">&#39;sigma&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="n">M</span><span class="p">:</span>
+            <span class="n">slates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="n">hcop</span><span class="o">.</span><span class="n">Slaters</span><span class="o">=</span><span class="n">slates</span>
+    <span class="k">return</span> <span class="n">hcop</span></div>
+<div class="viewcode-block" id="PairingH"><a class="viewcode-back" href="../ShellModel.html#ShellModel.PairingH">[docs]</a><span class="k">def</span> <span class="nf">PairingH</span><span class="p">(</span><span class="n">hilbert</span><span class="p">):</span>
+     <span class="s">&quot;Returns a hilbert space so that all slater determinants have paired nuclei&quot;</span>
+     <span class="n">slates</span><span class="o">=</span><span class="p">[]</span>
+     <span class="n">hcop</span><span class="o">=</span><span class="n">hilbert</span><span class="o">.</span><span class="n">Copy</span><span class="p">()</span>
+     <span class="k">for</span> <span class="n">slate</span> <span class="ow">in</span> <span class="n">hcop</span><span class="o">.</span><span class="n">Slaters</span><span class="p">:</span>
+        <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">if</span> <span class="n">slate</span><span class="o">.</span><span class="n">State</span><span class="o">==</span><span class="mi">0</span> <span class="ow">or</span> <span class="n">slate</span><span class="o">.</span><span class="n">State</span><span class="o">==</span><span class="p">[]:</span>
+             <span class="n">slates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slate</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">slate</span><span class="o">.</span><span class="n">State</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">state1</span> <span class="ow">in</span> <span class="n">slate</span><span class="o">.</span><span class="n">State</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">GetVal</span><span class="p">(</span><span class="s">&#39;sigma&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="n">state1</span><span class="o">.</span><span class="n">GetVal</span><span class="p">(</span><span class="s">&#39;sigma&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">state</span><span class="o">.</span><span class="n">GetVal</span><span class="p">(</span><span class="s">&#39;p&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">state1</span><span class="o">.</span><span class="n">GetVal</span><span class="p">(</span><span class="s">&#39;p&#39;</span><span class="p">):</span>
+                        <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="n">slate</span><span class="o">.</span><span class="n">State</span><span class="p">):</span>
+                <span class="n">slates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slate</span><span class="p">)</span>
+                 
+            
+     <span class="n">hcop</span><span class="o">.</span><span class="n">Slaters</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">slates</span><span class="p">))</span>
+     <span class="k">return</span> <span class="n">hcop</span></div>
+<div class="viewcode-block" id="MakeNumParticles"><a class="viewcode-back" href="../ShellModel.html#ShellModel.MakeNumParticles">[docs]</a><span class="k">def</span> <span class="nf">MakeNumParticles</span><span class="p">(</span><span class="n">hilbert</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+    <span class="s">&quot;Returns Slater Determinant with only n states in all slater determinants&quot;</span>
+    <span class="n">slates</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">hcop</span><span class="o">=</span><span class="n">hilbert</span><span class="o">.</span><span class="n">Copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">hcop</span><span class="o">.</span><span class="n">Slaters</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">State</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">slates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">State</span><span class="p">)</span><span class="o">==</span><span class="n">n</span><span class="p">:</span>
+                <span class="n">slates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="n">hcop</span><span class="o">.</span><span class="n">Slaters</span><span class="o">=</span><span class="n">slates</span>
+    <span class="k">return</span> <span class="n">hcop</span></div>
+<div class="viewcode-block" id="MakeMatrix"><a class="viewcode-back" href="../ShellModel.html#ShellModel.MakeMatrix">[docs]</a><span class="k">def</span> <span class="nf">MakeMatrix</span><span class="p">(</span><span class="n">HSpace</span><span class="p">,</span><span class="n">H</span><span class="p">):</span>
+    <span class="s">&quot;Calculates and Stores a matrix of matrix elmements as caluclated by bra ket, given a hamiltonian and the hilbert space(with slater determinants&quot;</span>
+    <span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">HSpace</span><span class="o">.</span><span class="n">Slaters</span><span class="p">)</span>
+    <span class="n">mat</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)):</span>
+         <span class="n">mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">H</span><span class="o">.</span><span class="n">braket</span><span class="p">(</span><span class="n">HSpace</span><span class="o">.</span><span class="n">Slaters</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">HSpace</span><span class="o">.</span><span class="n">Slaters</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">mat</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">StructureProject2 1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Charles Loelius.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

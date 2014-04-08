@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ShellModel module &mdash; StructureProject2 1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="StructureProject2 1 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">StructureProject2 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-ShellModel">
+<span id="shellmodel-module"></span><h1>ShellModel module<a class="headerlink" href="#module-ShellModel" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="ShellModel.HamilTerm">
+<em class="property">class </em><tt class="descclassname">ShellModel.</tt><tt class="descname">HamilTerm</tt><big>(</big><em>ops</em>, <em>hilb=None</em>, <em>constant=1</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#HamilTerm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.HamilTerm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>This class produces the individual terms in a hamiltonian from operators, and applies them</p>
+<dl class="method">
+<dt id="ShellModel.HamilTerm.Act">
+<tt class="descname">Act</tt><big>(</big><em>statevec</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#HamilTerm.Act"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.HamilTerm.Act" title="Permalink to this definition">¶</a></dt>
+<dd><p>For internal use primarily, calculates state vector returned by hamiltonian</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ShellModel.HamilTerm.Operators">
+<tt class="descname">Operators</tt><em class="property"> = []</em><a class="headerlink" href="#ShellModel.HamilTerm.Operators" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ShellModel.HamilTerm.braket">
+<tt class="descname">braket</tt><big>(</big><em>bra</em>, <em>ket</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#HamilTerm.braket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.HamilTerm.braket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns matrix element for single term</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ShellModel.HamilTerm.constant">
+<tt class="descname">constant</tt><em class="property"> = 1</em><a class="headerlink" href="#ShellModel.HamilTerm.constant" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ShellModel.HamilTerm.hilb">
+<tt class="descname">hilb</tt><em class="property"> = None</em><a class="headerlink" href="#ShellModel.HamilTerm.hilb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ShellModel.Hamiltonian">
+<em class="property">class </em><tt class="descclassname">ShellModel.</tt><tt class="descname">Hamiltonian</tt><big>(</big><em>Terms</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#Hamiltonian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.Hamiltonian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>This class serves to unify all of the terms and provide an easy way to calculate matrix elements. The class should mostly be used to call the braket function.</p>
+<dl class="method">
+<dt id="ShellModel.Hamiltonian.Act">
+<tt class="descname">Act</tt><big>(</big><em>state</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#Hamiltonian.Act"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.Hamiltonian.Act" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ShellModel.Hamiltonian.Terms">
+<tt class="descname">Terms</tt><em class="property"> = []</em><a class="headerlink" href="#ShellModel.Hamiltonian.Terms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ShellModel.Hamiltonian.braket">
+<tt class="descname">braket</tt><big>(</big><em>bra</em>, <em>ket</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#Hamiltonian.braket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.Hamiltonian.braket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the matrix element for the Hamiltonian with bra/ket</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ShellModel.HilbertSpace">
+<em class="property">class </em><tt class="descclassname">ShellModel.</tt><tt class="descname">HilbertSpace</tt><big>(</big><em>States</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#HilbertSpace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.HilbertSpace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>This class serves to order the states and form slater determinants</p>
+<dl class="method">
+<dt id="ShellModel.HilbertSpace.Copy">
+<tt class="descname">Copy</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/ShellModel.html#HilbertSpace.Copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.HilbertSpace.Copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ShellModel.HilbertSpace.GenerateSlaters">
+<tt class="descname">GenerateSlaters</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/ShellModel.html#HilbertSpace.GenerateSlaters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.HilbertSpace.GenerateSlaters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates Slaters from States</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ShellModel.HilbertSpace.GetStateIndex">
+<tt class="descname">GetStateIndex</tt><big>(</big><em>state</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#HilbertSpace.GetStateIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.HilbertSpace.GetStateIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns index of state in Hilbert Space</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ShellModel.HilbertSpace.Slaters">
+<tt class="descname">Slaters</tt><em class="property"> = []</em><a class="headerlink" href="#ShellModel.HilbertSpace.Slaters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ShellModel.HilbertSpace.Sort">
+<tt class="descname">Sort</tt><big>(</big><em>slater</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#HilbertSpace.Sort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.HilbertSpace.Sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the sorted state vector in the proper order</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ShellModel.HilbertSpace.States">
+<tt class="descname">States</tt><em class="property"> = []</em><a class="headerlink" href="#ShellModel.HilbertSpace.States" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="ShellModel.MakeHSpaceM">
+<tt class="descclassname">ShellModel.</tt><tt class="descname">MakeHSpaceM</tt><big>(</big><em>hilbert</em>, <em>M=0</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#MakeHSpaceM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.MakeHSpaceM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a hilbert space such that the total spin is M in each state</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ShellModel.MakeMatrix">
+<tt class="descclassname">ShellModel.</tt><tt class="descname">MakeMatrix</tt><big>(</big><em>HSpace</em>, <em>H</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#MakeMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.MakeMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates and Stores a matrix of matrix elmements as caluclated by bra ket, given a hamiltonian and the hilbert space(with slater determinants</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ShellModel.MakeNumParticles">
+<tt class="descclassname">ShellModel.</tt><tt class="descname">MakeNumParticles</tt><big>(</big><em>hilbert</em>, <em>n</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#MakeNumParticles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.MakeNumParticles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Slater Determinant with only n states in all slater determinants</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ShellModel.Operator">
+<em class="property">class </em><tt class="descclassname">ShellModel.</tt><tt class="descname">Operator</tt><big>(</big><em>state</em>, <em>Creation</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#Operator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.Operator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>This is associated with some state, can be creation or annhilation, and acts to change state vectors as creation/annhilation operators do</p>
+<dl class="method">
+<dt id="ShellModel.Operator.Act">
+<tt class="descname">Act</tt><big>(</big><em>statevector</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#Operator.Act"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.Operator.Act" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns null state vector if creation operator and its state is in the slater determinant or if annhilation and the state is not, or if the statevector is the null vector(represented by setting the state to 0). Returns state vector plus or minus the state otherwise(not properly ordered)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ShellModel.Operator.Creation">
+<tt class="descname">Creation</tt><em class="property"> = True</em><a class="headerlink" href="#ShellModel.Operator.Creation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ShellModel.Operator.GetPhase">
+<tt class="descname">GetPhase</tt><big>(</big><em>Hilb</em>, <em>Slate</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#Operator.GetPhase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.Operator.GetPhase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets Phase operator would return if it acts on the state</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ShellModel.Operator.copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/ShellModel.html#Operator.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.Operator.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ShellModel.Operator.state">
+<tt class="descname">state</tt><em class="property"> = 0</em><a class="headerlink" href="#ShellModel.Operator.state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="ShellModel.PairingH">
+<tt class="descclassname">ShellModel.</tt><tt class="descname">PairingH</tt><big>(</big><em>hilbert</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#PairingH"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.PairingH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a hilbert space so that all slater determinants have paired nuclei</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ShellModel.QuantumNumber">
+<em class="property">class </em><tt class="descclassname">ShellModel.</tt><tt class="descname">QuantumNumber</tt><big>(</big><em>name</em>, <em>value</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#QuantumNumber"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.QuantumNumber" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>Basic class to construct states</p>
+<dl class="method">
+<dt id="ShellModel.QuantumNumber.compare">
+<tt class="descname">compare</tt><big>(</big><em>qn</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#QuantumNumber.compare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.QuantumNumber.compare" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ShellModel.QuantumNumber.copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/ShellModel.html#QuantumNumber.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.QuantumNumber.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ShellModel.QuantumNumber.name">
+<tt class="descname">name</tt><em class="property"> = ''</em><a class="headerlink" href="#ShellModel.QuantumNumber.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ShellModel.QuantumNumber.value">
+<tt class="descname">value</tt><em class="property"> = 0</em><a class="headerlink" href="#ShellModel.QuantumNumber.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ShellModel.SlaterDeterm">
+<em class="property">class </em><tt class="descclassname">ShellModel.</tt><tt class="descname">SlaterDeterm</tt><big>(</big><em>states</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#SlaterDeterm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.SlaterDeterm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>These are the slater determinants, ordered, which keep track of which state&#8217;s are in the state</p>
+<dl class="method">
+<dt id="ShellModel.SlaterDeterm.AreStatesRepeated">
+<tt class="descname">AreStatesRepeated</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/ShellModel.html#SlaterDeterm.AreStatesRepeated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.SlaterDeterm.AreStatesRepeated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used in initialization</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ShellModel.SlaterDeterm.Compare">
+<tt class="descname">Compare</tt><big>(</big><em>slat</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#SlaterDeterm.Compare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.SlaterDeterm.Compare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used because many copies are used so simple == relations will not work</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ShellModel.SlaterDeterm.State">
+<tt class="descname">State</tt><em class="property"> = []</em><a class="headerlink" href="#ShellModel.SlaterDeterm.State" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ShellModel.SlaterDeterm.copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/ShellModel.html#SlaterDeterm.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.SlaterDeterm.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ShellModel.SlaterDeterm.dot">
+<tt class="descname">dot</tt><big>(</big><em>slat</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#SlaterDeterm.dot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.SlaterDeterm.dot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns 0 if either this Slater Determinant or the one being dotted with are null or they are different from each other. Returns 1 otherwise. If statesum is applied, applies this as a sum.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ShellModel.State">
+<em class="property">class </em><tt class="descclassname">ShellModel.</tt><tt class="descname">State</tt><big>(</big><em>quantumnums</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#State"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.State" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>Class keeps quantum numbers to define state and generates creation and annhilation operators</p>
+<dl class="method">
+<dt id="ShellModel.State.Compare">
+<tt class="descname">Compare</tt><big>(</big><em>state</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#State.Compare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.State.Compare" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ShellModel.State.GetVal">
+<tt class="descname">GetVal</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#State.GetVal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.State.GetVal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns value of quantum number for this state</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ShellModel.State.anop">
+<tt class="descname">anop</tt><em class="property"> = 0</em><a class="headerlink" href="#ShellModel.State.anop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ShellModel.State.copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/ShellModel.html#State.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.State.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ShellModel.State.creop">
+<tt class="descname">creop</tt><em class="property"> = 0</em><a class="headerlink" href="#ShellModel.State.creop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ShellModel.State.quantumnums">
+<tt class="descname">quantumnums</tt><em class="property"> = []</em><a class="headerlink" href="#ShellModel.State.quantumnums" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ShellModel.statesum">
+<em class="property">class </em><tt class="descclassname">ShellModel.</tt><tt class="descname">statesum</tt><big>(</big><em>states</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#statesum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.statesum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>This class should only be called within the Act functions in the Hamiltonian classes</p>
+<dl class="attribute">
+<dt id="ShellModel.statesum.State">
+<tt class="descname">State</tt><em class="property"> = []</em><a class="headerlink" href="#ShellModel.statesum.State" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ShellModel.statesum.dot">
+<tt class="descname">dot</tt><big>(</big><em>state</em><big>)</big><a class="reference internal" href="_modules/ShellModel.html#statesum.dot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ShellModel.statesum.dot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/ShellModel.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">StructureProject2 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Charles Loelius.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
